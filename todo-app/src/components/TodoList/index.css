@@ -1,0 +1,9 @@
+th {
+    border: 5em;
+    border-color: blue
+}
+
+.todo-list-table {
+    border: 5px;
+    text-align: center;
+}
