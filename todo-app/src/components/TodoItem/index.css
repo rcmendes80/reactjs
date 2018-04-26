@@ -1,4 +1,11 @@
 td {
-    border: 5em;
-    border-color: blue
+    border: 1px;
+    border-color: blue;
+    border-style: dotted;
+}
+
+.todo-row-table {
+    border:1px;
+    border-color: blue;
+    border-style: dotted;
 }

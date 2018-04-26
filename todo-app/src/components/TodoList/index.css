@@ -6,4 +6,6 @@ th {
 .todo-list-table {
     border: 5px;
     text-align: center;
+    border-style: solid;
+    border-color: cornflowerblue;
 }

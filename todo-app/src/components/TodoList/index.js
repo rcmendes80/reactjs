@@ -9,6 +9,8 @@ const TodoList = ({ items, onChangeCompleteState }) => (
         <th>This is the todo list:</th>
       </tr>
       <tr>
+        <th>No</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Due</th>
         <th>Is completed</th>
@@ -16,21 +18,22 @@ const TodoList = ({ items, onChangeCompleteState }) => (
     </thead>
     <tfoot>
       <tr>
-        <td colSpan="2">Total of items:</td>
+        <td colSpan="4">Total of items:</td>
         <td>{items.length}</td>
       </tr>
     </tfoot>
     <tbody>
-      {items.map((item, index) => { 
-        console.log("List["+index+"]: " + item.completed);
+      {items.map((item, index) => {
+        //console.log("List["+index+"]: " + item.completed);
         return (
-        <TodoItem
-          key={index}
-          item={item}
-          onChangeHandler={onChangeCompleteState}
-          index={index}
-        />
-      )})}
+          <TodoItem
+            key={index}
+            item={item}
+            onChangeHandler={onChangeCompleteState}
+            index={index}
+          />
+        )
+      })}
     </tbody>
   </table>
 );

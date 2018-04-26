@@ -10,8 +10,8 @@ class TodoItem extends Component {
     };
   }
 
-  componentDidMount = ()=> {
-    this.setState({ isChecked: this.props.item.completed})
+  componentDidMount = () => {
+    this.setState({ isChecked: this.props.item.completed })
   }
 
   toggleCheckedState = e => {
@@ -22,20 +22,22 @@ class TodoItem extends Component {
   };
 
   render() {
-    const {index, item} = this.props;
-    const {isChecked} = this.state;
+    const { index, item } = this.props;
+    const { isChecked } = this.state;
     return (
-      <tr>
-        <td>{index}:{item.name}</td>
+      <tr className={"todo-row-table"}>
+        <td>{index}</td>
+        <td>{item.id}</td>
+        <td>{item.name}</td>
         <td>{item.due}</td>
         <td>
-        <input
+          <input
             key={index}
             name={index}
             type="checkbox"
             checked={isChecked}
             onChange={this.toggleCheckedState}
-        />
+          />
         </td>
       </tr>
     );
