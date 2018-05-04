@@ -1,6 +1,54 @@
 import React, { Component } from "react";
 import "./App.css";
 import TodoList from "../TodoList";
+import TodoAddForm from '../TodoAddForm'
+
+
+class App extends Component {
+  state = {
+    items: []
+  };
+
+  componentDidMount = () => {
+    this.loadTodoList();
+  };
+
+  loadTodoList = () => {
+    fetch("http://localhost:9090/todos")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.setState({ items: data });
+      });
+  };
+
+  onChangeCompleteState = (index, isChecked) => {
+    let updatedItems = [...this.state.items];
+    updatedItems[index].completed = isChecked;
+    this.setState({ items: updatedItems });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Todo List:</h1>
+        </header>
+        <TodoAddForm />
+
+        <TodoList
+          items={this.state.items}
+          onChangeCompleteState={this.onChangeCompleteState}
+        />
+
+        <button onClick={this.loadTodoList}>Load</button>
+      </div>
+    );
+  }
+}
+
+export default App;
 
 const items_test = [
   {
@@ -35,51 +83,3 @@ const items_test = [
   }
 
 ];
-
-class App extends Component {
-  state = {
-    items:[]
-  };
-
-  componentDidMount = () => {
-    this.loadTodoList();
-  };
-
-  loadTodoList = () => {
-    fetch("http://localhost:9090/todos")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.setState({ items: data });
-      });
-  };
-
-  onChangeCompleteState = (index, isChecked) => {
-    let updatedItems = [...this.state.items];
-    updatedItems[index].completed = isChecked;
-    this.setState({ items: updatedItems });
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Todo List:</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-
-        <TodoList
-          items={this.state.items}
-          onChangeCompleteState={this.onChangeCompleteState}
-        />
-
-        <button onClick={this.loadTodoList}>Load</button>
-      </div>
-    );
-  }
-}
-
-export default App;
