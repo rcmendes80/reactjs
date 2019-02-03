@@ -1,14 +1,9 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import types from '../actions/types'
+import postsReducer from './postsReducer';
+import usersReducer from './usersReducer';
 
-const postsReducer = (state = [], action) => {
-    switch (action.type) {
-        case types.FETCH_POSTS:
-            return [{ id: 1, title: 'Title 1' }]
-        default:
-            return state
-    }
-}
-
-export default combineReducers({ posts: postsReducer })
+export default combineReducers({
+	posts: postsReducer,
+	users: usersReducer
+});
