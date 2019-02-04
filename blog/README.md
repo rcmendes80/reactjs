@@ -1,4 +1,4 @@
-### This project is a simple **React** app that lists Posts having it's author's name. Follows some packages used:
+### This project is a simple **React** app that lists Posts having it's author's name. Here is the list of some packages used:
 
 1. Redux
 2. React-Redux
