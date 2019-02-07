@@ -1,0 +1,1 @@
+This project is a sample of how to use **react-router** package.
