@@ -6,5 +6,6 @@ This app is using the following **packages**:
 * redux;
 * react-redux;
 
-Interesting **features** implemented:
+Interesting **features** implemented/used:
 * Google OAuth2;
+* Redux Dev Tools;
