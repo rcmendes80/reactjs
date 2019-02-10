@@ -5,6 +5,8 @@ This app is using the following **packages**:
 * semantic-ui-css;
 * redux;
 * react-redux;
+* redux-thunk;
+* axios.
 
 Interesting **features** implemented/used:
 * Google OAuth2;
