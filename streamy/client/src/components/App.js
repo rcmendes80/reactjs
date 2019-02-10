@@ -8,8 +8,6 @@ import StreamCreate from './streams/StreamCreate';
 import StreamDelete from './streams/StreamDelete';
 import StreamShow from './streams/StreamShow';
 
-const WelcomePage = () => <div>Welcome !!!</div>;
-
 class App extends React.Component {
 	render() {
 		return (
@@ -17,7 +15,7 @@ class App extends React.Component {
 				<BrowserRouter>
 					<div>
 						<Header />
-						<Route path="/" exact component={WelcomePage} />
+						<Route path="/" exact component={StreamList} />
 						<Route path="/streams/new" exact component={StreamCreate} />
 						<Route path="/streams/edit" exact component={StreamEdit} />
 						<Route path="/streams/delete" exact component={StreamDelete} />
