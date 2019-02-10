@@ -6,7 +6,8 @@ This app is using the following **packages**:
 * redux;
 * react-redux;
 * redux-thunk;
-* axios.
+* axios;
+* lodash.
 
 Interesting **features** implemented/used:
 * Google OAuth2;
