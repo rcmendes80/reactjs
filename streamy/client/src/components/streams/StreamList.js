@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { fetchStreams } from '../../actions';
 import { Link } from 'react-router-dom';
 
+import { deleteStream } from '../../actions';
+
 class StreamList extends React.Component {
 	componentDidMount() {
 		this.props.fetchStreams();
@@ -12,8 +14,12 @@ class StreamList extends React.Component {
 		if (stream.userId === this.props.currentUserId) {
 			return (
 				<div className="ui right floated">
-					<button className="ui button primary">EDIT</button>
-					<button className="ui button negative">DELETE</button>
+					<Link to={`/streams/edit/${stream.id}`} className="ui button primary">
+						EDIT
+					</Link>
+					<Link to={`/streams/delete/${stream.id}`} className="ui button negative">
+						DELETE
+					</Link>
 				</div>
 			);
 		}
@@ -26,7 +32,7 @@ class StreamList extends React.Component {
 					<div>{this.renderAdmin(stream)}</div>
 					<i className="large camera middle aligned icon" />
 					<div className="content">
-						<a className="header">{stream.title}</a>
+						<div className="header">{stream.title}</div>
 						<div className="description">{stream.description}</div>
 					</div>
 				</div>
@@ -38,8 +44,8 @@ class StreamList extends React.Component {
 		if (this.props.isSignedIn) {
 			return (
 				<div style={{ textAlign: 'right' }}>
-					<Link to="/streams/new">
-						<button className="ui button primary">Create Stream</button>
+					<Link to="/streams/new" className="ui button primary">
+						Create Stream
 					</Link>
 				</div>
 			);
@@ -65,4 +71,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { fetchStreams })(StreamList);
+export default connect(mapStateToProps, { fetchStreams, deleteStream })(StreamList);
