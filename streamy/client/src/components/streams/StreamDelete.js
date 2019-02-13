@@ -33,7 +33,7 @@ class StreamDelete extends React.Component {
 	renderContent() {
 		if (this.props.stream) {
 			const { title } = this.props.stream;
-			return `Do you wish to delete Stream with title '${title}'?`;
+			return `Do you wish to delete Stream with title: ${title}?`;
 		}
 
 		return 'Do you wish to delete Stream?';
