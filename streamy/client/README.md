@@ -12,3 +12,5 @@ This app is using the following **packages**:
 Interesting **features** implemented/used:
 * Google OAuth2;
 * Redux Dev Tools;
+* <React.Fragment></React.Fragment> <=> <></> <=> [,]
+
