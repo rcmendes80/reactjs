@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchStream } from '../../actions';
 import Modal from '../Modal';
 
-import history from '../history'
+import history from '../history';
 
 class StreamDelete extends React.Component {
 	componentDidMount() {
@@ -20,19 +20,26 @@ class StreamDelete extends React.Component {
 		);
 	}
 
-	render() {
-		console.log(this.props.stream);
-		let content = "Do you wish to delete Stream?";
+	renderContent() {
 		if (this.props.stream) {
-		const {title} = this.props.stream;
-		content = `Do you wish to delete Stream with title ${title}?`;
-
+			const { title } = this.props.stream;
+			return `Do you wish to delete Stream with title ${title}?`;
 		}
 
+		return 'Do you wish to delete Stream?';
+	}
+
+	render() {
+		console.log(this.props.stream);
 		return (
 			<div>
 				Stream Delete
-				<Modal actions={this.renderActions} title="Stream Delete" content={content} />
+				<Modal
+					onDismiss={() => history.push('/')}
+					actions={this.renderActions()}
+					title="Stream Delete"
+					content={this.renderContent()}
+				/>
 			</div>
 		);
 	}
