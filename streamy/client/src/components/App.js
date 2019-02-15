@@ -32,5 +32,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// gol: 190210009413
