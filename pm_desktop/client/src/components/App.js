@@ -7,6 +7,7 @@ import Header from './Header';
 import UserList from './users/UserList';
 import ProductList from './products/ProductList';
 import ProductCreate from './products/ProductCreate';
+import ProductEdit from './products/ProductEdit';
 
 const App = () => {
 	return (
@@ -18,6 +19,7 @@ const App = () => {
 						<Route path="/users" exact component={UserList} />
 						<Route path="/products" exact component={ProductList} />
 						<Route path="/products/new" exact component={ProductCreate} />
+						<Route path="/products/edit/:id" exact component={ProductEdit} />
 					</Switch>
 				</div>
 			</Router>

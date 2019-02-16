@@ -1,32 +1,32 @@
 {
-  "products": [
-    {
-      "id": 1,
-      "name": "Product Alfa",
-      "description": "This product aims the financial market.",
-      "status": "PRODUCTION"
-    },
-    {
-      "id": 2,
-      "name": "Product Beta",
-      "description": "This product aims the labour market.",
-      "status": "CONCEPTION"
-    },
-    {
-      "id": 3,
-      "name": "Product Gama",
-      "description": "This product aims the academic market.",
-      "status": "DEVELOPMENT"
-    },
-    {
-      "name": "P1",
-      "description": "D1",
-      "tags": "t1, t2",
-      "id": 4
-    }
-  ],
-  "users": [],
-  "logbooks": [],
-  "roadmaps": [],
-  "todos": []
+	"products": [
+		{
+			"id": 1,
+			"name": "Product Alfa",
+			"description": "This product aims the financial market.",
+			"status": "PRODUCTION"
+		},
+		{
+			"id": 2,
+			"name": "Product Beta",
+			"description": "This product aims the labour market.",
+			"status": "CONCEPTION"
+		},
+		{
+			"id": 3,
+			"name": "Product Gama",
+			"description": "This product aims the academic market.",
+			"status": "DEVELOPMENT"
+		},
+		{
+			"name": "P1",
+			"description": "D1",
+			"tags": [ "t1", "t2" ],
+			"id": 4
+		}
+	],
+	"users": [],
+	"logbooks": [],
+	"roadmaps": [],
+	"todos": []
 }

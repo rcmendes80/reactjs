@@ -4,6 +4,7 @@ import { FETCH_USERS, FETCH_USER, CREATE_USER, UPDATE_USER, DELETE_USER } from '
 export default (state = {}, action) => {
 	switch (action.type) {
 		case FETCH_USERS:
+			console.log('state users', state);
 			return { ...state, ..._.mapKeys(action.payload, 'id') };
 		case FETCH_USER:
 			return { ...state, [action.payload.id]: action.payload };
