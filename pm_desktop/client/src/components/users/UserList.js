@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import { fetchUsers } from '../../actions';
 
@@ -15,10 +15,19 @@ class UserList extends React.Component {
 				<div className="item" key={user.id}>
 					<i className="large user middle aligned icon" />
 					<div className="content">
-						<Link to={`/users/edit/${user.id}`} className="header">{user.name}</Link>
+						<Link to={`/users/edit/${user.id}`} className="header">
+							{user.name}
+						</Link>
 						<div className="description">
-							<div>{user.username}</div>
-							<div>{user.email}</div>
+							<div>
+								<i className="id badge icon" />
+								{user.username}
+							</div>
+
+							<div>
+								<i className="mail icon" />
+								{user.email}
+							</div>
 						</div>
 					</div>
 				</div>

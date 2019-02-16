@@ -5,6 +5,7 @@ import history from './history';
 
 import Header from './Header';
 import UserList from './users/UserList';
+import ProductList from './products/ProductList'
 
 const App = () => {
 	return (
@@ -14,6 +15,7 @@ const App = () => {
 					<Header />
 					<Switch>
 						<Route path="/users" exact component={UserList} />
+						<Route path="/products" exact component={ProductList} />
 					</Switch>
 				</div>
 			</Router>

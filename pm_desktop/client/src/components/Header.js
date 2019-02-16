@@ -9,7 +9,7 @@ const Header = () => {
 				<Link
 					to="/"
 					className={`item ${selectedMenu === 'home' ? 'active' : ''}`}
-					onClick={()=> setSelectedMenu('home')}
+					onClick={() => setSelectedMenu('home')}
 				>
 					Project Manager Desktop
 				</Link>
@@ -17,9 +17,16 @@ const Header = () => {
 					<Link
 						to="/users"
 						className={`item ${selectedMenu === 'users' ? 'active' : ''}`}
-						onClick={()=> setSelectedMenu('users')}
+						onClick={() => setSelectedMenu('users')}
 					>
 						Users
+					</Link>
+					<Link
+						to="/products"
+						className={`item ${selectedMenu === 'products' ? 'active' : ''}`}
+						onClick={() => setSelectedMenu('products')}
+					>
+						Products
 					</Link>
 					<div className="item">
 						<div className="ui transparent icon input">
