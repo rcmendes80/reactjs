@@ -5,7 +5,8 @@ import history from './history';
 
 import Header from './Header';
 import UserList from './users/UserList';
-import ProductList from './products/ProductList'
+import ProductList from './products/ProductList';
+import ProductCreate from './products/ProductCreate';
 
 const App = () => {
 	return (
@@ -16,6 +17,7 @@ const App = () => {
 					<Switch>
 						<Route path="/users" exact component={UserList} />
 						<Route path="/products" exact component={ProductList} />
+						<Route path="/products/new" exact component={ProductCreate} />
 					</Switch>
 				</div>
 			</Router>

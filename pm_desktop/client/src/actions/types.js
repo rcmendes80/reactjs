@@ -11,6 +11,9 @@ export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+//Tags of a Product
+export const ADD_PRODUCT_TAG = 'ADD_PRODUCT_TAG';
+export const DELETE_PRODUCT_TAG = 'DELETE_PRODUCT_TAG';
 
 //Logbook
 export const FETCH_LOGBOOKS = 'FETCH_LOGBOOKS';
