@@ -14,6 +14,7 @@ import {
 	ADD_PRODUCT_TAG,
 	// DELETE_PRODUCT_TAG,
 	FETCH_PRODUCT_TAGS
+	// UPDATE_PRODUCT
 } from './types';
 
 // import history from '../components/history';
@@ -41,14 +42,17 @@ export const fetchProduct = (id) => async (dispatch) => {
 };
 
 export const createProduct = (formValues) => async (dispatch) => {
-	console.log(formValues);
+	console.log('CREATE product action', formValues);
 	// const response = await pmDesktopAPI.post('/products', formValues);
 	// dispatch({ type: CREATE_PRODUCT, payload: response.data });
 	//history.push('/products');
 };
 
 export const updateProduct = (formValues) => async (dispatch) => {
-	console.log(formValues);
+	console.log('UPDATE product action', formValues);
+	// const response = await pmDesktopAPI.patch(`/products/${formValues.id}`, formValues);
+	// dispatch({ type: UPDATE_PRODUCT, payload: response.data });
+	// history.push('/products');
 };
 
 export const fetchProductTags = (product) => {
@@ -59,6 +63,7 @@ export const fetchProductTags = (product) => {
 };
 
 export const addProductTag = (tag) => (dispatch) => {
+	console.log('add tag action', tag);
 	dispatch({ type: ADD_PRODUCT_TAG, payload: tag });
 	// history.push('/products/new');
 };

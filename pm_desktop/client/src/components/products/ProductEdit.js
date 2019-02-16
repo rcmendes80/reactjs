@@ -6,13 +6,8 @@ import { connect } from 'react-redux';
 import { updateProduct, addProductTag, fetchProduct } from '../../actions';
 
 class ProductEdit extends React.Component {
-	onSubmit = (formValues) => {
-		this.props.updateProduct(formValues);
-	};
-
 	componentDidMount() {
 		const { id } = this.props.match.params;
-		console.log(id);
 		this.props.fetchProduct(id);
 	}
 
@@ -47,6 +42,47 @@ class ProductEdit extends React.Component {
 		return <input {...input} type="text" />;
 	}
 
+	renderTags = () => {
+		const { tags } = this.props.initialValues;
+		if (tags) {
+			return tags.map((tag, idx) => {
+				return (
+					<div className="ui right left icon input" key={idx}>
+						<button className="ui tag label teal">
+							{tag}
+							<i className="icon close " onClick={() => this.onRemoveTag(tag)} />
+						</button>
+					</div>
+				);
+			});
+		}
+	};
+
+	renderTagInput = ({ input, placeholder }) => {
+		return (
+			<div>
+				<div className="ui right labeled left icon input">
+					<i className="tags icon" />
+					<input placeholder={placeholder} {...input} />
+					<button className="ui tag label" onClick={() => this.onAddTag(input)}>
+						Add Tag
+					</button>
+				</div>
+			</div>
+		);
+	};
+
+	onSubmit = (formValues) => {
+		this.props.updateProduct(formValues);
+		this.props.dispatch(this.props.change('newTag', ''));
+	};
+
+	onAddTag = ({ value }) => {
+		console.log(value);
+		const { id } = this.props.match.params;
+		this.props.addProductTag({ productId: id, tag: value });
+	};
+
 	render() {
 		if (!this.props.initialValues) {
 			return <div>Loading...</div>;
@@ -62,7 +98,9 @@ class ProductEdit extends React.Component {
 						label="Description"
 						placeholder="Enter description of the product"
 					/>
-
+					<Field name="newTag" component={this.renderTagInput} label="Tag" placeholder="Enter new tag" />
+					<Field name="tags" component={this.renderInputHidden} />
+					<div className="ui segment">{this.renderTags()}</div>
 					<div className="ui buttons">
 						<button className="ui button primary">Submit</button>
 					</div>
