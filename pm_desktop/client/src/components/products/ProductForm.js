@@ -1,51 +1,49 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
-import _ from 'lodash';
 
 class ProductForm extends React.Component {
-	state = {
-		editTag: '',
-		tags: []
+	componentDidMount() {
+		console.log('mounting');
+		this.props.initialize(this.props.initialValues);
+	}
+	renderErrorMessage = ({ error, touched }) => {
+		if (touched && error) {
+			return <div className="ui pointing red basic label">{error}</div>;
+		}
 	};
-	onRemoveTag = (tagToBeRemoved) => {
-		console.log(tagToBeRemoved);
+
+	renderTextInput = ({ input, label, meta, placeholder }) => {
+		const className = `field ${meta.touched && meta.error ? 'error' : ''}`;
+		return (
+			<div className={className}>
+				<label>{label}</label>
+				<input {...input} placeholder={placeholder} />
+				{this.renderErrorMessage(meta)}
+			</div>
+		);
+	};
+
+	renderTextAreaInput = ({ input, label, meta, placeholder }) => {
+		return (
+			<div className="field">
+				<label>{label}</label>
+				<textarea {...input} maxLength="200" placeholder={placeholder} />
+			</div>
+		);
+	};
+
+	renderInputHidden({ input }) {
+		return <input {...input} type="text" />;
+	}
+
+	renderTags = () => {
 		const { tags } = this.props.initialValues;
-		const newTagList = tags.filter((item) => {
-			return item !== tagToBeRemoved;
-		});
-
-		this.props.initialValues = { ...this.props.initialValues, tags: newTagList };
-		console.log(this.props.initialValues);
-	};
-	/*
-	onAddTag = () => {
-		// this.props.onAddTag(this.state.editTag);
-		const newTagList = _.uniq([ ...this.state.tags, this.state.editTag ]);
-		this.setState({ ...this.state, editTag: null, tags: newTagList });
-		// this.props.dispatch(this.props.change('tags', newTagList));
-		this.props.change('tags', newTagList);
-		this.props.change('newTag', '');
-		console.log(this.props.initialValues);
-	};*/
-
-	onAddTag = () => {
-		const newTagList = _.uniq([ ...this.state.tags, this.state.editTag ]);
-		this.setState({ ...this.state, editTag: null, tags: newTagList });
-		this.props.onAddTag(this.state.editTag);
-	};
-
-	onChangeTag = (event) => {
-		this.setState({ editTag: event.target.value });
-	};
-
-	renderTags = (tags) => {
 		if (tags) {
-			console.log(tags);
-			return tags.map((tag) => {
+			return tags.map((tag, idx) => {
 				return (
-					<div className="ui right left icon input" key={tag.title}>
+					<div className="ui right left icon input" key={idx}>
 						<button className="ui tag label teal">
-							{tag.title}
+							{tag}
 							<i className="icon close " onClick={() => this.onRemoveTag(tag)} />
 						</button>
 					</div>
@@ -54,7 +52,7 @@ class ProductForm extends React.Component {
 		}
 	};
 
-	renderTagInput = ({ input, label, meta, placeholder }) => {
+	renderTagInput = ({ input, placeholder }) => {
 		return (
 			<div>
 				<div className="ui right labeled left icon input">
@@ -68,70 +66,45 @@ class ProductForm extends React.Component {
 		);
 	};
 
-	renderErrorMessage = ({ error, touched }) => {
-		if (touched && error) {
-			return <div className="ui pointing red basic label">{error}</div>;
+	onAddTag = ({ value }) => {
+		this.props.onAddTag(value);
+		this.props.dispatch(this.props.change('newTag', ''));
+	};
+
+	onKeyPress = (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
 		}
 	};
 
-	renderInput = ({ input, label, meta, placeholder }) => {
-		const className = `field ${meta.touched && meta.error ? 'error' : ''}`;
-		return (
-			<div className={className}>
-				<label>{label}</label>
-				<input {...input} placeholder={placeholder} />
-				{this.renderErrorMessage(meta)}
-			</div>
-		);
-	};
-
-	renderTextArea = ({ input, label, meta, placeholder }) => {
-		return (
-			<div className="field">
-				<label>{label}</label>
-				<textarea {...input} maxLength="200" placeholder={placeholder} />
-			</div>
-		);
-	};
-
-	renderInputTags({ input }) {
-		console.log('tag input', input);
-		return <input {...input} type="text" />;
-	}
-
 	render() {
+		if (!this.props.initialValues) {
+			return <div>Loading...</div>;
+		}
 		console.log(this.props);
 		return (
 			<div>
-				<form className="ui form error" onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
-					<Field name="name" component={this.renderInput} label="Name" placeholder="Enter a name" />
+				<form className="ui form error" onSubmit={this.props.handleSubmit} onKeyPress={this.onKeyPress}>
+					<Field name="name" component={this.renderTextInput} label="Name" placeholder="Enter a name" />
 					<Field
 						name="description"
-						component={this.renderTextArea}
+						component={this.renderTextAreaInput}
 						label="Description"
 						placeholder="Enter description of the product"
 					/>
-					<Field
-						name="newTag"
-						component={this.renderTagInput}
-						label="Tag"
-						placeholder="Enter new tag"
-						onChange={(e) => this.onChangeTag(e)}
-					/>
-					<Field name="tags" component={this.renderInputTags} />
-
-					<div className="ui ">
-						<button className="ui button primary">Submit</button>
+					<Field name="newTag" component={this.renderTagInput} label="Tag" placeholder="Enter new tag" />
+					<Field name="tags" component={this.renderInputHidden} />
+					<div className="ui segment">{this.renderTags()}</div>
+					<div className="ui buttons">
+						<button className="ui button primary" disabled={this.props.pristine || this.props.submitting}>
+							Submit
+						</button>
 					</div>
 				</form>
 			</div>
 		);
 	}
 }
-
-//<a class="ui tag label">New</a>
-//<a class="ui red tag label">Upcoming</a>
-//<a class="ui teal tag label">Featured</a>
 
 const validate = (formValues) => {
 	const errors = {};
