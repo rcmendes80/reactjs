@@ -1,6 +1,6 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
-
+import { reduxForm, Field, getFormValues } from 'redux-form';
+import { connect } from 'react-redux';
 // import { createPost } from '../../actions';
 
 const PostCreate = (props) => {
@@ -13,8 +13,40 @@ const PostCreate = (props) => {
 		);
 	};
 
+	const renderTags = (tags) => {
+		return tags.map((tag, idx) => {
+			return (
+				<span key={idx} className="badge badge-secondary">
+					{tag}
+				</span>
+			);
+		});
+	};
+
+	const newTagInput = ({ input, label, placeholder }) => {
+		return (
+			<div className="form-group">
+				<label>{label}</label>
+				<input {...input} placeholder={placeholder} className="form-control" />
+				<button
+					className="btn btn-success"
+					onClick={(input) => {
+						addTag(input);
+					}}
+				>
+					Add
+				</button>
+			</div>
+		);
+	};
+
+	const addTag = (tag) => {
+		console.log('#: addTag -> tag', tag);
+		console.log('#: addTag -> props', props);
+	};
+
 	const onSubmit = (formValues) => {
-		console.log(formValues);
+		console.log('#: onSubmit -> formValues', formValues);
 	};
 
 	return (
@@ -27,11 +59,13 @@ const PostCreate = (props) => {
 					<form>
 						<Field name="title" component={renderInput} placeholder="Enter a title" label="Title" />
 						<Field
-							name="Description"
+							name="description"
 							component={renderInput}
 							placeholder="Enter a Description"
 							label="Description"
 						/>
+						<Field name="newTag" component={newTagInput} placeholder="Enter a new Tag" label="New Tag" />
+						<Field name="tags" component="input" />
 					</form>
 					<button className="btn btn-primary" onClick={props.handleSubmit(onSubmit)}>
 						Submit
@@ -42,4 +76,12 @@ const PostCreate = (props) => {
 	);
 };
 
-export default reduxForm({ form: 'PostCreate' })(PostCreate);
+const mapStateToProps = (state) => ({
+	form: state.form,
+	posts: state.posts,
+	zzzz: getFormValues('PostCreate')(state)
+});
+
+const postForm = reduxForm({ form: 'PostCreate' })(PostCreate);
+//values: getFormValues('PostCreate')(state)
+export default connect(mapStateToProps)(postForm);

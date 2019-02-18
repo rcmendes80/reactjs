@@ -58,7 +58,7 @@ class ProductForm extends React.Component {
 				<div className="ui right labeled left icon input">
 					<i className="tags icon" />
 					<input placeholder={placeholder} {...input} />
-					<button className="ui tag label" onClick={() => this.onAddTag(input)}>
+					<button className="ui tag label" onClick={(e) => this.onAddTag(input.value, e)}>
 						Add Tag
 					</button>
 				</div>
@@ -66,9 +66,11 @@ class ProductForm extends React.Component {
 		);
 	};
 
-	onAddTag = ({ value }) => {
-		this.props.onAddTag(value);
-		this.props.dispatch(this.props.change('newTag', ''));
+	onAddTag = (tag, e) => {
+		this.props.onAddTag(tag);
+		// this.props.dispatch(this.props.change('newTag', ''));
+		this.props.reset();
+		e.preventDefault();
 	};
 
 	onKeyPress = (e) => {
@@ -116,4 +118,4 @@ const validate = (formValues) => {
 	return errors;
 };
 
-export default reduxForm({ form: 'ProductForm', validate })(ProductForm);
+export default reduxForm({ form: 'ProductForm', validate, enableReinitialize: true })(ProductForm);
