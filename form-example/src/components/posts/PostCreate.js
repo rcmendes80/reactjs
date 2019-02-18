@@ -1,5 +1,5 @@
 import React from 'react';
-import { reduxForm, Field, getFormValues } from 'redux-form';
+import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 // import { createPost } from '../../actions';
 
@@ -79,11 +79,15 @@ const PostCreate = (props) => {
 	);
 };
 
-const mapStateToProps = (state) => ({
-	currentForm: state.form,
-	posts: state.posts,
-	values: getFormValues('Post Create')(state)
-});
+const mapStateToProps = (state) => {
+	const selector = formValueSelector('Post Create');
+	console.log('#: mapStateToProps -> selector', selector);
+	return {
+		currentForm: state.form,
+		posts: state.posts,
+		tags: selector(state, 'tags')
+	};
+};
 
 const postForm = reduxForm({ form: 'Post Create' })(PostCreate);
 //values: getFormValues('PostCreate')(state)
