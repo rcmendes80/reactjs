@@ -30,8 +30,8 @@ const PostCreate = (props) => {
 				<input {...input} placeholder={placeholder} className="form-control" />
 				<button
 					className="btn btn-success"
-					onClick={(input) => {
-						addTag(input);
+					onClick={(e) => {
+						addTag(e, input.value);
 					}}
 				>
 					Add
@@ -40,9 +40,12 @@ const PostCreate = (props) => {
 		);
 	};
 
-	const addTag = (tag) => {
+	const addTag = (e, tag) => {
+		console.log('#: addTag -> e', e);
 		console.log('#: addTag -> tag', tag);
 		console.log('#: addTag -> props', props);
+		props.dispatch(props.change('tags', tag));
+		e.preventDefault();
 	};
 
 	const onSubmit = (formValues) => {
@@ -77,11 +80,11 @@ const PostCreate = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	form: state.form,
+	currentForm: state.form,
 	posts: state.posts,
-	zzzz: getFormValues('PostCreate')(state)
+	values: getFormValues('Post Create')(state)
 });
 
-const postForm = reduxForm({ form: 'PostCreate' })(PostCreate);
+const postForm = reduxForm({ form: 'Post Create' })(PostCreate);
 //values: getFormValues('PostCreate')(state)
 export default connect(mapStateToProps)(postForm);
