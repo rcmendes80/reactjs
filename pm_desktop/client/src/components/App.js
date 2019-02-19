@@ -8,6 +8,9 @@ import UserList from './users/UserList';
 import ProductList from './products/ProductList';
 import ProductCreate from './products/ProductCreate';
 import ProductEdit from './products/ProductEdit';
+import LogbookList from './logbooks/LogbookList';
+import TodoList from './todos/TodoList';
+import TodoCreate from './todos/TodoCreate';
 
 const App = () => {
 	return (
@@ -17,9 +20,12 @@ const App = () => {
 					<Header />
 					<Switch>
 						<Route path="/users" exact component={UserList} />
+						<Route path="/todos" exact component={TodoList} />
+						<Route path="/todos/new" exact component={TodoCreate} />
 						<Route path="/products" exact component={ProductList} />
 						<Route path="/products/new" exact component={ProductCreate} />
 						<Route path="/products/edit/:id" exact component={ProductEdit} />
+						<Route path="/products/:productId/logbooks" exact component={LogbookList} />
 					</Switch>
 				</div>
 			</Router>

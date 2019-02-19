@@ -15,6 +15,13 @@ const Header = () => {
 				</Link>
 				<div className="right menu">
 					<Link
+						to="/todos"
+						className={`item ${selectedMenu === 'todos' ? 'active' : ''}`}
+						onClick={() => setSelectedMenu('todos')}
+					>
+						TODOS
+					</Link>
+					<Link
 						to="/users"
 						className={`item ${selectedMenu === 'users' ? 'active' : ''}`}
 						onClick={() => setSelectedMenu('users')}

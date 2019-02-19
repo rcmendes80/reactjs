@@ -12,9 +12,11 @@ class ProductList extends React.Component {
 	renderList() {
 		return this.props.products.map((product) => {
 			return (
-				<Link to={`/products/${product.id}`} className="ui item" key={product.id}>
-					<div className="header">{product.name}</div>
-					<div className="content">{product.description}</div>
+				<Link to={`/products/${product.id}`} className="item" key={product.id}>
+					<div className="content">
+						<div className="header">{product.name}</div>
+						<div className="description">{product.description}</div>
+					</div>
 				</Link>
 			);
 		});

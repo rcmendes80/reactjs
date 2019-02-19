@@ -22,3 +22,9 @@ export const FETCH_LOGBOOK = 'FETCH_LOGBOOK';
 export const CREATE_LOGBOOK = 'CREATE_LOGBOOK';
 export const UPDATE_LOGBOOK = 'UPDATE_LOGBOOK';
 export const DELETE_LOGBOOK = 'DELETE_LOGBOOK';
+
+//Todo
+export const FETCH_TODOS = 'FETCH_TODOS';
+export const FETCH_TODO = 'FETCH_TODO';
+export const CREATE_TODO = 'CREATE_TODO';
+export const SAVE_TODO = 'SAVE_TODO';

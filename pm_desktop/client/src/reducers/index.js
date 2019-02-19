@@ -3,11 +3,11 @@ import { reducer as formReducer } from 'redux-form';
 
 import userReducer from './userReducer';
 import productReducer from './productReducer';
-// import productFormReducer from './productFormReducer';
+import todoReducer from './todoReducer';
 
 export default combineReducers({
 	users: userReducer,
 	products: productReducer,
-	// productForm: productFormReducer,
+	todos: todoReducer,
 	form: formReducer
 });

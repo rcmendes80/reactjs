@@ -13,8 +13,12 @@ import {
 	// DELETE_PRODUCT,
 	ADD_PRODUCT_TAG,
 	// DELETE_PRODUCT_TAG,
-	FETCH_PRODUCT_TAGS
-	// UPDATE_PRODUCT
+	FETCH_PRODUCT_TAGS,
+	// UPDATE_PRODUCT,
+	FETCH_TODOS,
+	FETCH_TODO,
+	SAVE_TODO,
+	CREATE_TODO
 } from './types';
 
 // import history from '../components/history';
@@ -66,4 +70,28 @@ export const addProductTag = (tag) => (dispatch) => {
 	console.log('add tag action', tag);
 	dispatch({ type: ADD_PRODUCT_TAG, payload: tag });
 	// history.push('/products/new');
+};
+
+export const fetchTodos = () => async (dispatch) => {
+	dispatch({
+		type: FETCH_TODOS,
+		loading: true
+	});
+
+	try {
+		const response = await pmDesktopAPI.get('/todos');
+		dispatch({
+			type: FETCH_TODOS,
+			loading: false,
+			payload: response.data
+		});
+	} catch (e) {
+		console.error(e);
+		dispatch({
+			type: FETCH_TODOS,
+			loading: false,
+			isError: true,
+			error: e.message
+		});
+	}
 };
