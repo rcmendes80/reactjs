@@ -15,7 +15,7 @@ class TodoList extends React.Component {
 		}
 
 		if (this.props.isError) {
-			return <div>{this.props.error}</div>;
+			return <div>{this.props.errorMessage}</div>;
 		}
 
 		return this.props.todos.map((todo) => {
@@ -33,9 +33,6 @@ class TodoList extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="ui segment">
-					<p>Todo List</p>
-				</div>
 				<div className="ui relaxed divided list">{this.renderList()}</div>
 			</div>
 		);
@@ -46,7 +43,7 @@ const mapStateToProps = (state) => {
 	return {
 		todos: Object.values(state.todos.data),
 		isError: state.todos.isError,
-		error: state.todos.error,
+		errorMessage: state.todos.errorMessage,
 		isLoading: state.todos.loading
 	};
 };

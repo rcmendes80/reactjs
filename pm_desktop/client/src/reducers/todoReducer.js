@@ -10,19 +10,18 @@ import {
 const INITIAL_STATE = {
 	data: {},
 	isError: false,
-	error: null,
+	errorMessage: null,
 	loading: false,
 	tempTodo: {
-		title: null,
-		description: null
+		title: '',
+		description: ''
 	}
 };
 
 export default (state = INITIAL_STATE, action) => {
-	const { type } = action;
+	const { type, loading, isError, success, errorMessage, payload } = action;
 	switch (type) {
 		case FETCH_TODOS:
-			const { payload, loading, isError, error } = action;
 			const todos =
 				!loading && !isError
 					? payload.reduce((obj, todo) => {
@@ -33,20 +32,33 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				isError,
 				loading,
-				error,
+				errorMessage,
 				data: {
 					...INITIAL_STATE.data,
 					...todos
 				}
 			};
+		case SAVE_TODO:
+			if (isError) {
+				return { ...state, isError, error: errorMessage };
+			}
+
+			if (success) {
+				const newData = { ...state.data, [payload.id]: payload };
+				return { ...state, data: newData };
+			}
+
+			return { ...state, loading };
+
 		case CREATE_TEMP_TODO:
 			return { ...INITIAL_STATE };
 		case CHANGE_VALUE_TODO_FIELD:
 			const { field, value } = action;
+			const newTempTodo = { ...state.tempTodo, [field]: value };
 
-			//todo update state with field
 			return {
-				...state
+				...state,
+				tempTodo: newTempTodo
 			};
 		default:
 			return state;

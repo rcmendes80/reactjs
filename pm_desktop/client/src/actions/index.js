@@ -20,10 +20,11 @@ import {
 	// SAVE_TODO,
 	// CREATE_TODO,
 	CREATE_TEMP_TODO,
-	CHANGE_VALUE_TODO_FIELD
+	CHANGE_VALUE_TODO_FIELD,
+	SAVE_TODO
 } from './types';
 
-// import history from '../components/history';
+import history from '../components/history';
 
 //USERS ACTIONS
 export const fetchUsers = () => async (dispatch) => {
@@ -87,13 +88,14 @@ export const fetchTodos = () => async (dispatch) => {
 			loading: false,
 			payload: response.data
 		});
+		history.push('/todos');
 	} catch (e) {
 		console.error(e);
 		dispatch({
 			type: FETCH_TODOS,
 			loading: false,
 			isError: true,
-			error: e.message
+			errorMessage: e.message
 		});
 	}
 };
@@ -110,4 +112,29 @@ export const changeValueTodoField = (field, value) => {
 		field,
 		value
 	};
+};
+
+export const saveTodo = () => async (dispatch, getState) => {
+	const { tempTodo } = getState().todos;
+
+	dispatch({
+		type: SAVE_TODO,
+		loading: true
+	});
+
+	try {
+		const response = await pmDesktopAPI.post('/todos', tempTodo);
+
+		dispatch({
+			type: SAVE_TODO,
+			success: true,
+			payload: response.data
+		});
+	} catch (e) {
+		dispatch({
+			type: SAVE_TODO,
+			isError: true,
+			errorMessage: e.message
+		});
+	}
 };
