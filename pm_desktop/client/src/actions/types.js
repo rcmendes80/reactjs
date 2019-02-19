@@ -27,4 +27,7 @@ export const DELETE_LOGBOOK = 'DELETE_LOGBOOK';
 export const FETCH_TODOS = 'FETCH_TODOS';
 export const FETCH_TODO = 'FETCH_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
 export const SAVE_TODO = 'SAVE_TODO';
+export const CREATE_TEMP_TODO = 'CREATE_TEMP_TODO';
+export const CHANGE_VALUE_TODO_FIELD = 'CHANGE_VALUE_TODO_FIELD';

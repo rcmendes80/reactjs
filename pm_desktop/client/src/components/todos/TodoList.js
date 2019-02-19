@@ -31,7 +31,14 @@ class TodoList extends React.Component {
 	}
 
 	render() {
-		return <div className="ui relaxed divided list">{this.renderList()}</div>;
+		return (
+			<div>
+				<div className="ui segment">
+					<p>Todo List</p>
+				</div>
+				<div className="ui relaxed divided list">{this.renderList()}</div>
+			</div>
+		);
 	}
 }
 

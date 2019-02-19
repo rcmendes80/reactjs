@@ -16,9 +16,11 @@ import {
 	FETCH_PRODUCT_TAGS,
 	// UPDATE_PRODUCT,
 	FETCH_TODOS,
-	FETCH_TODO,
-	SAVE_TODO,
-	CREATE_TODO
+	// FETCH_TODO,
+	// SAVE_TODO,
+	// CREATE_TODO,
+	CREATE_TEMP_TODO,
+	CHANGE_VALUE_TODO_FIELD
 } from './types';
 
 // import history from '../components/history';
@@ -94,4 +96,18 @@ export const fetchTodos = () => async (dispatch) => {
 			error: e.message
 		});
 	}
+};
+
+export const createTempTodo = () => {
+	return {
+		type: CREATE_TEMP_TODO
+	};
+};
+
+export const changeValueTodoField = (field, value) => {
+	return {
+		type: CHANGE_VALUE_TODO_FIELD,
+		field,
+		value
+	};
 };

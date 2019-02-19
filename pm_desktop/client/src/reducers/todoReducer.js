@@ -1,16 +1,28 @@
-import { FETCH_TODOS, FETCH_TODO, SAVE_TODO, CREATE_TODO } from '../actions/types';
+import {
+	FETCH_TODOS,
+	FETCH_TODO,
+	SAVE_TODO,
+	CREATE_TODO,
+	CREATE_TEMP_TODO,
+	CHANGE_VALUE_TODO_FIELD
+} from '../actions/types';
 
 const INITIAL_STATE = {
 	data: {},
 	isError: false,
-	error: '',
-	loading: false
+	error: null,
+	loading: false,
+	tempTodo: {
+		title: null,
+		description: null
+	}
 };
 
-export default (state = INITIAL_STATE, { type, payload, loading, isError, error }) => {
+export default (state = INITIAL_STATE, action) => {
+	const { type } = action;
 	switch (type) {
 		case FETCH_TODOS:
-			console.log(type, payload, loading, isError, error);
+			const { payload, loading, isError, error } = action;
 			const todos =
 				!loading && !isError
 					? payload.reduce((obj, todo) => {
@@ -23,9 +35,18 @@ export default (state = INITIAL_STATE, { type, payload, loading, isError, error 
 				loading,
 				error,
 				data: {
-					...state.data,
+					...INITIAL_STATE.data,
 					...todos
 				}
+			};
+		case CREATE_TEMP_TODO:
+			return { ...INITIAL_STATE };
+		case CHANGE_VALUE_TODO_FIELD:
+			const { field, value } = action;
+
+			//todo update state with field
+			return {
+				...state
 			};
 		default:
 			return state;
