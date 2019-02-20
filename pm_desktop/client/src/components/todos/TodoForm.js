@@ -5,7 +5,7 @@ import InputTextForm from '../basics/InputTextForm';
 const TodoForm = (props) => {
 	return (
 		<div>
-			<div className="ui form">
+			<div className="ui fluid form">
 				<InputTextForm
 					name="title"
 					placeholder="Enter a title"

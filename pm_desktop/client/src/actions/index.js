@@ -88,7 +88,6 @@ export const fetchTodos = () => async (dispatch) => {
 			loading: false,
 			payload: response.data
 		});
-		history.push('/todos');
 	} catch (e) {
 		console.error(e);
 		dispatch({
@@ -130,6 +129,7 @@ export const saveTodo = () => async (dispatch, getState) => {
 			success: true,
 			payload: response.data
 		});
+		history.push('/todos');
 	} catch (e) {
 		dispatch({
 			type: SAVE_TODO,
