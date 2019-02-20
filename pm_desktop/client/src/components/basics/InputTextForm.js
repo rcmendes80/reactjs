@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
-const renderError = (field) => {
-	return <div className="ui pointing red basic label">{`The field '${field}' is required.`}</div>;
+const renderError = (errors) => {
+	return errors.length > 0 ? <div className="ui pointing red basic label">{errors}</div> : '';
 };
 
-const InputTextForm = ({ name, onChange, placeholder = '', label, required = false, value = '' }) => {
-	const [ hasError, setHasError ] = useState(false);
+const InputTextForm = ({ name, onChange, placeholder = '', label, required = false, value = '', validate = null }) => {
+	const [ errors, setErrors ] = useState([]);
+	const fieldClassName = `field ${required ? 'required' : ''} ${errors.length > 0 ? 'error' : ''}`;
 
-	const checkForErrors = (required, value) => {
-		required && value.trim().length < 1 ? setHasError(true) : setHasError(false);
+	const onBlur = () => {
+		if (validate) {
+			setErrors(validate());
+		}
 	};
-
-	const fieldClassName = `field ${required ? 'required' : ''} ${hasError ? 'error' : ''}`;
 
 	return (
 		<div className={fieldClassName}>
@@ -20,12 +21,12 @@ const InputTextForm = ({ name, onChange, placeholder = '', label, required = fal
 				type="text"
 				name={name}
 				placeholder={placeholder}
-				onChange={onChange}
 				value={value}
-				onBlur={() => checkForErrors(required, value)}
-				onFocus={() => setHasError(false)}
+				onBlur={onBlur}
+				onChange={(e) => onChange(name, e.target.value)}
+				onFocus={() => setErrors([])}
 			/>
-			{hasError && renderError(label, required)}
+			{renderError(errors)}
 		</div>
 	);
 };

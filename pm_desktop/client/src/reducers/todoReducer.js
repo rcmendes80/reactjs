@@ -1,11 +1,4 @@
-import {
-	FETCH_TODOS,
-	FETCH_TODO,
-	SAVE_TODO,
-	CREATE_TODO,
-	CREATE_TEMP_TODO,
-	CHANGE_VALUE_TODO_FIELD
-} from '../actions/types';
+import { FETCH_TODOS, FETCH_TODO, SAVE_TODO, CREATE_TODO, CREATE_TEMP_TODO } from '../actions/types';
 
 const INITIAL_STATE = {
 	data: {},
@@ -52,14 +45,6 @@ export default (state = INITIAL_STATE, action) => {
 
 		case CREATE_TEMP_TODO:
 			return { ...INITIAL_STATE };
-		case CHANGE_VALUE_TODO_FIELD:
-			const { field, value } = action;
-			const newTempTodo = { ...state.tempTodo, [field]: value };
-
-			return {
-				...state,
-				tempTodo: newTempTodo
-			};
 		default:
 			return state;
 	}
