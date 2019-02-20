@@ -1,14 +1,10 @@
 import React from 'react';
-import { createTempTodo, saveTodo } from '../../actions';
+import { saveTodo } from '../../actions';
 import { connect } from 'react-redux';
 
 import TodoForm from './TodoForm';
 
 class TodoCreate extends React.Component {
-	componentDidMount() {
-		this.props.createTempTodo();
-	}
-
 	onSave = (formValues) => {
 		this.props.saveTodo(formValues);
 	};
