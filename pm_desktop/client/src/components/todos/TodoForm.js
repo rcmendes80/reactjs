@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 
-import InputForm from '../basics/InputForm';
+import InputTextForm from '../basics/InputTextForm';
+import InputCheckboxForm from '../basics/InputCheckboxForm';
 
 const TodoForm = (props) => {
-	let initialFieldValuesState = { title: '', description: '', done: false };
-	if (props.initialValues) {
-		initialFieldValuesState = { ...initialFieldValuesState, ...props.initialValues };
-	}
-
-	const [ fieldValues, setFieldValues ] = useState(initialFieldValuesState);
-
-	const onChangeFieldValue = (field, value) => {
-		setFieldValues({ ...fieldValues, [field]: value });
-	};
+	const [ title, setTitle ] = useState(props.initialValues.title || '');
+	const [ description, setDescription ] = useState(props.initialValues.description || '');
+	const [ done, setDone ] = useState(props.initialValues.done || false);
 
 	const validateTitleField = () => {
 		let errors = [];
-		const { title } = fieldValues;
 		if (title.trim().length < 1) {
 			errors = [ ...errors, 'The title is required.' ];
 		}
@@ -25,49 +18,41 @@ const TodoForm = (props) => {
 	};
 
 	const onSave = () => {
-		console.log('#: TodoForm -> onSave -> fieldValues', fieldValues);
+		console.log('#: TodoForm -> title', title);
+		console.log('#: TodoForm -> description', description);
+		console.log('#: TodoForm -> done', done);
 		const errors = validateTitleField();
 		if (errors.length > 0) {
 			//TODO Exibir mensagem para resolver pendencias do formulário
 		} else {
-			props.onSave(fieldValues);
+			props.onSave({ title, description, done });
 		}
 	};
 
 	return (
 		<div>
-			<div className="ui fluid form">
-				<InputForm
+			<div className="ui attached message">
+				<div className="header">Create a new Todo</div>
+				<p>Fill out the form below to create a new todo.</p>
+			</div>
+			<div className="ui form attached fluid segment">
+				<InputTextForm
 					name="title"
 					placeholder="Enter a title"
 					label="Title"
 					required={true}
-					value={fieldValues.title}
-					onChange={onChangeFieldValue}
+					value={title}
+					setValueHandler={setTitle}
 					validate={validateTitleField}
 				/>
-				<InputForm
+				<InputTextForm
 					name="description"
 					placeholder="Enter a Description"
 					label="Description"
-					required={false}
-					value={fieldValues.description}
-					onChange={onChangeFieldValue}
+					value={description}
+					setValueHandler={setDescription}
 				/>
-				<InputForm
-					name="done"
-					label="Done"
-					type="checkbox"
-					value={fieldValues.done}
-					onChange={onChangeFieldValue}
-				/>
-				<div className="field">
-					<div className="ui checkbox">
-						<label>Done</label>
-						<input type="checkbox" tabIndex="0" name="done2" />
-					</div>
-				</div>
-
+				<InputCheckboxForm name="done" label="Done" value={done} setValueHandler={setDone} />
 				<div>
 					<button className="ui button" onClick={onSave}>
 						Submit

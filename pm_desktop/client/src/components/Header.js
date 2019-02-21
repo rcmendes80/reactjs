@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import MessageBox from '../components/basics/MessageBox';
+
 const Header = () => {
 	const [ selectedMenu, setSelectedMenu ] = useState('home');
 	return (
@@ -43,9 +45,7 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
-			<div className="ui segment">
-				<p>{selectedMenu}</p>
-			</div>
+			<MessageBox />
 		</div>
 	);
 };
