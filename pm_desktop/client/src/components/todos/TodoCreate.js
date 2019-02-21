@@ -10,7 +10,7 @@ class TodoCreate extends React.Component {
 	};
 
 	render() {
-		return <TodoForm onSave={this.onSave} initialValues={{ title: '', description: '' }} />;
+		return <TodoForm onSave={this.onSave} />;
 	}
 }
 

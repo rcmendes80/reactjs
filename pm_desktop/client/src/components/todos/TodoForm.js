@@ -4,9 +4,15 @@ import InputTextForm from '../basics/InputTextForm';
 import InputCheckboxForm from '../basics/InputCheckboxForm';
 
 const TodoForm = (props) => {
-	const [ title, setTitle ] = useState(props.initialValues.title || '');
-	const [ description, setDescription ] = useState(props.initialValues.description || '');
-	const [ done, setDone ] = useState(props.initialValues.done || false);
+	const initialTitleValue = props.initialValues && props.initialValues.title ? props.initialValues.title : '';
+	const [ title, setTitle ] = useState(initialTitleValue);
+
+	const initialDescriptionValue =
+		props.initialValues && props.initialValues.description ? props.initialValues.description : '';
+	const [ description, setDescription ] = useState(initialDescriptionValue);
+
+	const initialDoneValue = props.initialValues && props.initialValues.done ? props.initialValues.done : false;
+	const [ done, setDone ] = useState(initialDoneValue);
 
 	const validateTitleField = () => {
 		let errors = [];

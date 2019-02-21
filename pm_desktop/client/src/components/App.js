@@ -11,6 +11,7 @@ import ProductEdit from './products/ProductEdit';
 import LogbookList from './logbooks/LogbookList';
 import TodoList from './todos/TodoList';
 import TodoCreate from './todos/TodoCreate';
+import TodoEdit from './todos/TodoEdit';
 
 const App = () => {
 	return (
@@ -22,6 +23,7 @@ const App = () => {
 						<Route path="/users" exact component={UserList} />
 						<Route path="/todos" exact component={TodoList} />
 						<Route path="/todos/new" exact component={TodoCreate} />
+						<Route path="/todos/edit/:id" exact component={TodoEdit} />
 						<Route path="/products" exact component={ProductList} />
 						<Route path="/products/new" exact component={ProductCreate} />
 						<Route path="/products/edit/:id" exact component={ProductEdit} />
