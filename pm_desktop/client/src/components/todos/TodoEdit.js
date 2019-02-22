@@ -1,19 +1,27 @@
 import React, { useEffect } from 'react';
-import { saveTodo } from '../../actions';
+import { updateTodo, fetchTodo } from '../../actions';
 import { connect } from 'react-redux';
 
 import TodoForm from './TodoForm';
 
 const TodoEdit = (props) => {
-	useEffect(() => {
-		console.log(props.match.params);
-	});
+	const { id } = props.match.params;
+	useEffect(
+		() => {
+			console.log('props.match.params.id', id);
+			props.fetchTodo(id);
+		},
+		[ id ]
+	);
 
 	const onSave = (formValues) => {
-		props.saveTodo(formValues);
+		props.updateTodo(formValues);
 	};
 
-	return <TodoForm onSave={onSave} initialValues={{ title: '', description: '' }} />;
+	//TODO FIX THIS!
+	return <TodoForm onSave={onSave} initialValues={props.todo} />;
 };
 
-export default connect(null, { saveTodo })(TodoEdit);
+const mapStateToProps = (state, ownProps) => ({ todo: state.todos.data[ownProps.match.params.id] });
+
+export default connect(mapStateToProps, { updateTodo, fetchTodo })(TodoEdit);

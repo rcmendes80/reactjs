@@ -1,12 +1,12 @@
 import React from 'react';
-import { saveTodo } from '../../actions';
+import { createTodo } from '../../actions';
 import { connect } from 'react-redux';
 
 import TodoForm from './TodoForm';
 
 class TodoCreate extends React.Component {
 	onSave = (formValues) => {
-		this.props.saveTodo(formValues);
+		this.props.createTodo(formValues);
 	};
 
 	render() {
@@ -16,4 +16,4 @@ class TodoCreate extends React.Component {
 
 const mapStateToProps = (state) => ({ todo: state.todos.tempTodo });
 
-export default connect(mapStateToProps, { saveTodo })(TodoCreate);
+export default connect(mapStateToProps, { createTodo })(TodoCreate);

@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const MessageBox = (props) => {
+const MessageBox = ({ visible = true, type = '', message, details = '' }) => {
+	const [ className, setClassName ] = useState(visible ? `ui ${type} message` : 'ui message transition');
+
+	const onClose = () => {
+		setClassName('ui message transition');
+		setTimeout(() => {
+			setClassName('ui message hidden');
+		}, 300);
+	};
+
 	return (
-		<div className="ui success message">
-			<i className="close icon" onClick={console.log} />
-			<div className="header">Your user registration was successful.</div>
-			<p>You may now log-in with the username you have chosen</p>
+		<div className={className}>
+			<i className="close icon" onClick={onClose} />
+			<div className="header">{message}</div>
+			<p>{details}</p>
 		</div>
 	);
 };

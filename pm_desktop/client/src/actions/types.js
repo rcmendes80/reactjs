@@ -11,10 +11,6 @@ export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
-//Tags of a Product
-export const ADD_PRODUCT_TAG = 'ADD_PRODUCT_TAG';
-export const DELETE_PRODUCT_TAG = 'DELETE_PRODUCT_TAG';
-export const FETCH_PRODUCT_TAGS = 'FETCH_PRODUCT_TAGS';
 
 //Logbook
 export const FETCH_LOGBOOKS = 'FETCH_LOGBOOKS';
@@ -27,7 +23,5 @@ export const DELETE_LOGBOOK = 'DELETE_LOGBOOK';
 export const FETCH_TODOS = 'FETCH_TODOS';
 export const FETCH_TODO = 'FETCH_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
-export const EDIT_TODO = 'EDIT_TODO';
-export const SAVE_TODO = 'SAVE_TODO';
-export const CREATE_TEMP_TODO = 'CREATE_TEMP_TODO';
-export const CHANGE_VALUE_TODO_FIELD = 'CHANGE_VALUE_TODO_FIELD';
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const DELETE_TODO = 'DELETE_TODO';

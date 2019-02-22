@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { updateProduct, addProductTag, fetchProduct } from '../../actions';
+import { updateProduct, fetchProduct } from '../../actions';
 
 import ProductForm from './ProductForm';
 
@@ -17,7 +17,7 @@ class ProductEdit extends React.Component {
 
 	onAddTag = (tag) => {
 		const { id } = this.props.match.params;
-		this.props.addProductTag({ productId: id, tag });
+		// this.props.addProductTag({ productId: id, tag });
 	};
 
 	render() {
@@ -43,4 +43,4 @@ const mapStateToProps = (state, ownProps) => ({
 	form: state.form
 });
 
-export default connect(mapStateToProps, { updateProduct, addProductTag, fetchProduct })(ProductEdit);
+export default connect(mapStateToProps, { updateProduct, fetchProduct })(ProductEdit);

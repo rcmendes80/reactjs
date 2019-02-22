@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createProduct, addProductTag } from '../../actions';
+import { createProduct } from '../../actions';
 import _ from 'lodash';
 
 import ProductForm from './ProductForm';
@@ -13,7 +13,6 @@ class ProductCreate extends React.Component {
 
 	onAddTag = (title) => {
 		console.log('onAddProductTag', title);
-		this.props.addProductTag(title);
 	};
 
 	render() {
@@ -41,4 +40,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { createProduct, addProductTag })(ProductCreate);
+export default connect(mapStateToProps, { createProduct })(ProductCreate);

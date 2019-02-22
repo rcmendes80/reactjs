@@ -45,7 +45,10 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
-			<MessageBox />
+			<MessageBox message="Testing 1234" />
+			<MessageBox message="Testing 2" type="success" />
+			<MessageBox message="Testing 3" type="warning" />
+			<MessageBox message="Testing 4" type="error" />
 		</div>
 	);
 };

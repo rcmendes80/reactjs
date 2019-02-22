@@ -11,17 +11,11 @@ import {
 	// CREATE_PRODUCT,
 	// UPDATE_PRODUCT,
 	// DELETE_PRODUCT,
-	ADD_PRODUCT_TAG,
-	// DELETE_PRODUCT_TAG,
-	FETCH_PRODUCT_TAGS,
 	// UPDATE_PRODUCT,
 	FETCH_TODOS,
-	// FETCH_TODO,
-	// SAVE_TODO,
-	// CREATE_TODO,
-	CREATE_TEMP_TODO,
-	CHANGE_VALUE_TODO_FIELD,
-	SAVE_TODO
+	FETCH_TODO,
+	UPDATE_TODO,
+	CREATE_TODO
 } from './types';
 
 import history from '../components/history';
@@ -62,19 +56,6 @@ export const updateProduct = (formValues) => async (dispatch) => {
 	// history.push('/products');
 };
 
-export const fetchProductTags = (product) => {
-	return {
-		type: FETCH_PRODUCT_TAGS,
-		payload: product.tags
-	};
-};
-
-export const addProductTag = (tag) => (dispatch) => {
-	console.log('add tag action', tag);
-	dispatch({ type: ADD_PRODUCT_TAG, payload: tag });
-	// history.push('/products/new');
-};
-
 export const fetchTodos = () => async (dispatch) => {
 	dispatch({
 		type: FETCH_TODOS,
@@ -99,40 +80,68 @@ export const fetchTodos = () => async (dispatch) => {
 	}
 };
 
-export const createTempTodo = () => {
-	return {
-		type: CREATE_TEMP_TODO
-	};
+export const fetchTodo = (id) => async (dispatch) => {
+	dispatch({ type: FETCH_TODO, loading: true });
+
+	try {
+		const response = await pmDesktopAPI.get(`/todos/${id}`);
+
+		dispatch({
+			type: FETCH_TODO,
+			success: true,
+			payload: response.data
+		});
+	} catch (e) {
+		dispatch({
+			type: FETCH_TODO,
+			isError: true,
+			errorMessage: e.message
+		});
+	}
 };
 
-export const changeValueTodoField = (field, value) => {
-	return {
-		type: CHANGE_VALUE_TODO_FIELD,
-		field,
-		value
-	};
-};
-
-export const saveTodo = () => async (dispatch, getState) => {
-	const { tempTodo } = getState().todos;
-
+export const createTodo = (todo) => async (dispatch) => {
 	dispatch({
-		type: SAVE_TODO,
+		type: CREATE_TODO,
 		loading: true
 	});
 
 	try {
-		const response = await pmDesktopAPI.post('/todos', tempTodo);
+		const response = await pmDesktopAPI.post('/todos', todo);
 
 		dispatch({
-			type: SAVE_TODO,
+			type: CREATE_TODO,
 			success: true,
 			payload: response.data
 		});
 		history.push('/todos');
 	} catch (e) {
 		dispatch({
-			type: SAVE_TODO,
+			type: CREATE_TODO,
+			isError: true,
+			errorMessage: e.message
+		});
+	}
+};
+
+export const updateTodo = (todo) => async (dispatch) => {
+	dispatch({
+		type: UPDATE_TODO,
+		loading: true
+	});
+
+	try {
+		const response = await pmDesktopAPI.patch(`/todos/${todo.id}`, todo);
+
+		dispatch({
+			type: UPDATE_TODO,
+			success: true,
+			payload: response.data
+		});
+		history.push('/todos');
+	} catch (e) {
+		dispatch({
+			type: UPDATE_TODO,
 			isError: true,
 			errorMessage: e.message
 		});

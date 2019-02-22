@@ -1,18 +1,14 @@
-import { FETCH_TODOS, FETCH_TODO, SAVE_TODO, CREATE_TODO, CREATE_TEMP_TODO } from '../actions/types';
+import { FETCH_TODOS, FETCH_TODO, UPDATE_TODO, CREATE_TODO } from '../actions/types';
 
 const INITIAL_STATE = {
 	data: {},
 	isError: false,
 	errorMessage: null,
-	loading: false,
-	tempTodo: {
-		title: '',
-		description: ''
-	}
+	loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
-	const { type, loading, isError, success, errorMessage, payload } = action;
+	const { type, loading = false, isError = false, success = false, errorMessage = '', payload } = action;
 	switch (type) {
 		case FETCH_TODOS:
 			const todos =
@@ -31,20 +27,39 @@ export default (state = INITIAL_STATE, action) => {
 					...todos
 				}
 			};
-		case SAVE_TODO:
-			if (isError) {
-				return { ...state, isError, error: errorMessage };
-			}
+		case FETCH_TODO:
+			let newState = { ...state, isError, errorMessage, loading };
 
 			if (success) {
-				const newData = { ...state.data, [payload.id]: payload };
-				return { ...state, data: newData };
+				return {
+					...newState,
+					data: {
+						...newState.data,
+						[payload.id]: payload
+					}
+				};
 			}
 
-			return { ...state, loading };
+			return newState;
+		case UPDATE_TODO:
+			newState = { ...state, isError, errorMessage, loading };
 
-		case CREATE_TEMP_TODO:
-			return { ...INITIAL_STATE };
+			if (success) {
+				const newData = { ...newState.data, [payload.id]: payload };
+				return { ...newState, data: newData };
+			}
+
+			return newState;
+
+		case CREATE_TODO:
+			newState = { ...state, isError, errorMessage, loading };
+
+			if (success) {
+				const newData = { ...newState.data, [payload.id]: payload };
+				return { ...newState, data: newData };
+			}
+
+			return newState;
 		default:
 			return state;
 	}
