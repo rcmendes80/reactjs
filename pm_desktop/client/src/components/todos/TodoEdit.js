@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateTodo, fetchTodo } from '../../actions';
+import { updateTodo, fetchTodo, updateTodoPropertyValue } from '../../actions';
 import { connect } from 'react-redux';
 
 import TodoForm from './TodoForm';
@@ -10,18 +10,27 @@ class TodoEdit extends React.Component {
 		this.props.fetchTodo(id);
 	}
 
-	onSave = (formValues) => {
+	onSave = () => {
+		this.props.updateTodo(this.props.todo);
+	};
+
+	onChangeFieldValue = (field, value) => {
 		const { id } = this.props.match.params;
-		const todo = { ...formValues, id };
-		this.props.updateTodo(todo);
+		this.props.updateTodoPropertyValue({ id, property: field, value });
 	};
 
 	render() {
 		//TODO FIX THIS!
-		return <TodoForm onSave={this.onSave} initialValues={this.props.todo} />;
+		return (
+			<TodoForm
+				onSubmit={this.onSave}
+				initialValues={this.props.todo}
+				onChangeFieldValue={this.onChangeFieldValue}
+			/>
+		);
 	}
 }
 
 const mapStateToProps = (state, ownProps) => ({ todo: state.todos.data[ownProps.match.params.id] });
 
-export default connect(mapStateToProps, { updateTodo, fetchTodo })(TodoEdit);
+export default connect(mapStateToProps, { updateTodo, fetchTodo, updateTodoPropertyValue })(TodoEdit);

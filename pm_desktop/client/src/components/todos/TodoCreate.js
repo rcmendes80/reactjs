@@ -5,15 +5,31 @@ import { connect } from 'react-redux';
 import TodoForm from './TodoForm';
 
 class TodoCreate extends React.Component {
-	onSave = (formValues) => {
-		this.props.createTodo(formValues);
+	state = {
+		todo: {
+			title: '',
+			description: '',
+			done: false
+		}
+	};
+
+	onChangeFieldValue = (field, value) => {
+		this.setState({ todo: { ...this.state.todo, [field]: value } });
+	};
+
+	onSave = () => {
+		this.props.createTodo(this.state.todo);
 	};
 
 	render() {
-		return <TodoForm onSave={this.onSave} />;
+		return (
+			<TodoForm
+				onSubmit={this.onSave}
+				initialValues={this.state.todo}
+				onChangeFieldValue={this.onChangeFieldValue}
+			/>
+		);
 	}
 }
 
-const mapStateToProps = (state) => ({ todo: state.todos.tempTodo });
-
-export default connect(mapStateToProps, { createTodo })(TodoCreate);
+export default connect(null, { createTodo })(TodoCreate);

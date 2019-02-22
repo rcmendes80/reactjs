@@ -1,4 +1,4 @@
-import { FETCH_TODOS, FETCH_TODO, UPDATE_TODO, CREATE_TODO } from '../actions/types';
+import { FETCH_TODOS, FETCH_TODO, UPDATE_TODO, CREATE_TODO, UPDATE_TODO_PROPERTY_VALUE } from '../actions/types';
 
 const INITIAL_STATE = {
 	data: {},
@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
 	const { type, loading = false, isError = false, success = false, errorMessage = '', payload } = action;
+	const newState = { ...state, isError, errorMessage, loading };
 	switch (type) {
 		case FETCH_TODOS:
 			const todos =
@@ -28,8 +29,6 @@ export default (state = INITIAL_STATE, action) => {
 				}
 			};
 		case FETCH_TODO:
-			let newState = { ...state, isError, errorMessage, loading };
-
 			if (success) {
 				return {
 					...newState,
@@ -42,8 +41,6 @@ export default (state = INITIAL_STATE, action) => {
 
 			return newState;
 		case UPDATE_TODO:
-			newState = { ...state, isError, errorMessage, loading };
-
 			if (success) {
 				const newData = { ...newState.data, [payload.id]: payload };
 				return { ...newState, data: newData };
@@ -52,14 +49,16 @@ export default (state = INITIAL_STATE, action) => {
 			return newState;
 
 		case CREATE_TODO:
-			newState = { ...state, isError, errorMessage, loading };
-
 			if (success) {
 				const newData = { ...newState.data, [payload.id]: payload };
 				return { ...newState, data: newData };
 			}
 
 			return newState;
+		case UPDATE_TODO_PROPERTY_VALUE:
+			const { id, property, value } = payload;
+			const updatedTodo = { ...newState.data[id], [property]: value };
+			return { ...newState, data: { ...newState.data, [id]: updatedTodo } };
 		default:
 			return state;
 	}

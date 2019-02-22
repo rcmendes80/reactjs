@@ -15,7 +15,8 @@ import {
 	FETCH_TODOS,
 	FETCH_TODO,
 	UPDATE_TODO,
-	CREATE_TODO
+	CREATE_TODO,
+	UPDATE_TODO_PROPERTY_VALUE
 } from './types';
 
 import history from '../components/history';
@@ -146,4 +147,11 @@ export const updateTodo = (todo) => async (dispatch) => {
 			errorMessage: e.message
 		});
 	}
+};
+
+export const updateTodoPropertyValue = (params) => {
+	return {
+		type: UPDATE_TODO_PROPERTY_VALUE,
+		payload: { ...params }
+	};
 };
