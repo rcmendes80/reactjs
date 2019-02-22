@@ -1,6 +1,8 @@
 import jsonPlaceholder from '../apis/jsonPlaceholder';
 import pmDesktopAPI from '../apis/pmDesktopAPI';
 import {
+	SHOW_GLOBAL_MESSAGE,
+	HIDE_GLOBAL_MESSAGE,
 	FETCH_USERS,
 	// FETCH_USER,
 	// CREATE_USER,
@@ -20,6 +22,25 @@ import {
 } from './types';
 
 import history from '../components/history';
+
+export const showGlobalMessage = (params) => {
+	return {
+		type: SHOW_GLOBAL_MESSAGE,
+		globalMessage: {
+			...params,
+			show: true
+		}
+	};
+};
+
+export const hideGlobalMessage = () => {
+	return {
+		type: HIDE_GLOBAL_MESSAGE,
+		globalMessage: {
+			show: false
+		}
+	};
+};
 
 //USERS ACTIONS
 export const fetchUsers = () => async (dispatch) => {
