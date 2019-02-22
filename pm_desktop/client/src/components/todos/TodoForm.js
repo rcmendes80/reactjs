@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import InputTextForm from '../basics/InputTextForm';
 import InputCheckboxForm from '../basics/InputCheckboxForm';
 
 const TodoForm = (props) => {
-	const initialTitleValue = props.initialValues && props.initialValues.title ? props.initialValues.title : '';
-	const [ title, setTitle ] = useState(initialTitleValue);
-
-	const initialDescriptionValue =
-		props.initialValues && props.initialValues.description ? props.initialValues.description : '';
-	const [ description, setDescription ] = useState(initialDescriptionValue);
-
-	const initialDoneValue = props.initialValues && props.initialValues.done ? props.initialValues.done : false;
-	const [ done, setDone ] = useState(initialDoneValue);
+	const [ title, setTitle ] = useState('');
+	const [ description, setDescription ] = useState('');
+	const [ done, setDone ] = useState(false);
 
 	const validateTitleField = () => {
 		let errors = [];
@@ -23,10 +17,18 @@ const TodoForm = (props) => {
 		return errors;
 	};
 
+	useEffect(
+		() => {
+			if (props.initialValues) {
+				setTitle(props.initialValues.title || title);
+				setDescription(props.initialValues.description || description);
+				setDone(props.initialValues.done || done);
+			}
+		},
+		[ props.initialValues ]
+	);
+
 	const onSave = () => {
-		console.log('#: TodoForm -> title', title);
-		console.log('#: TodoForm -> description', description);
-		console.log('#: TodoForm -> done', done);
 		const errors = validateTitleField();
 		if (errors.length > 0) {
 			//TODO Exibir mensagem para resolver pendencias do formulário

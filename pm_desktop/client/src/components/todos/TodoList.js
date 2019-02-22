@@ -3,26 +3,30 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTodos } from '../../actions';
 
+import MessageBox from '../basics/MessageBox';
+
 class TodoList extends React.Component {
 	componentDidMount() {
 		this.props.fetchTodos();
 	}
 
 	renderList() {
-		console.log(this.props);
 		if (this.props.loading) {
-			return <div>Loading....</div>;
+			return <MessageBox title="Loading..." />;
 		}
 
 		if (this.props.isError) {
-			return <div>{this.props.errorMessage}</div>;
+			return <MessageBox title="Error on loading Todo list" details={this.props.errorMessage} />;
 		}
 
 		return this.props.todos.map((todo) => {
+			const style = todo.done ? { textDecoration: 'line-through' } : {};
 			return (
-				<Link to={`/todos/${todo.id}`} className="item" key={todo.id}>
+				<Link to={`/todos/edit/${todo.id}`} className="item" key={todo.id}>
 					<div className="content">
-						<div className="header">{todo.title}</div>
+						<div className="header">
+							<span style={style}>{todo.title}</span>
+						</div>
 						<div className="description">{todo.description}</div>
 					</div>
 				</Link>

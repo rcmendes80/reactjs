@@ -14,19 +14,13 @@ const InputTextForm = ({
 	validate = null
 }) => {
 	const [ errors, setErrors ] = useState([]);
-	// const [ touched, setTouched ] = useState(false);
 
 	const fieldClassName = `field ${required ? 'required' : ''} ${errors.length > 0 ? 'error' : ''}`;
 
 	const onBlur = () => {
-		// if (touched && validate) {
 		if (validate) {
 			setErrors(validate());
 		}
-	};
-
-	const onFocus = () => {
-		// setTouched(true);
 	};
 
 	return (
@@ -38,7 +32,6 @@ const InputTextForm = ({
 				value={value}
 				onBlur={onBlur}
 				onChange={(e) => setValueHandler(e.target.value)}
-				onFocus={onFocus}
 			/>
 			{renderError(errors)}
 		</div>
