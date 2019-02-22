@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchTodos } from '../../actions';
+import { fetchTodos, showGlobalMessage } from '../../actions';
 
 import MessageBox from '../basics/MessageBox';
 
@@ -16,7 +16,12 @@ class TodoList extends React.Component {
 		}
 
 		if (this.props.isError) {
-			return <MessageBox title="Error on loading Todo list" details={this.props.errorMessage} />;
+			// TODO move to scenarios of error in todo action creators
+			this.props.showGlobalMessage({
+				type: 'error',
+				title: 'Error on loading Todo list' //,details: this.props.errorMessage
+			});
+			return <div />;
 		}
 
 		return this.props.todos.map((todo) => {
@@ -52,4 +57,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { fetchTodos })(TodoList);
+export default connect(mapStateToProps, { fetchTodos, showGlobalMessage })(TodoList);

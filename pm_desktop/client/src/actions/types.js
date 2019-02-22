@@ -1,6 +1,7 @@
 //Header
 export const SHOW_GLOBAL_MESSAGE = 'SHOW_GLOBAL_MESSAGE';
 export const HIDE_GLOBAL_MESSAGE = 'HIDE_GLOBAL_MESSAGE';
+export const SELECT_MENU = 'SELECT_MENU';
 
 //Users
 export const FETCH_USERS = 'FETCH_USERS';

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
-const MessageBox = ({ visible = true, type = '', message, details = '' }) => {
-	const [ className, setClassName ] = useState(visible ? `ui ${type} message` : 'ui message transition');
+const MessageBox = (props) => {
+	console.log('#: MessageBox -> props', props);
+	const { show = true, type = '', title, details = '' } = props;
+	const [ className, setClassName ] = useState(show ? `ui ${type} message` : 'ui message hidden');
 
 	const onClose = () => {
 		setClassName('ui message transition');
@@ -13,7 +15,7 @@ const MessageBox = ({ visible = true, type = '', message, details = '' }) => {
 	return (
 		<div className={className}>
 			<i className="close icon" onClick={onClose} />
-			<div className="header">{message}</div>
+			<div className="header">{title}</div>
 			<p>{details}</p>
 		</div>
 	);

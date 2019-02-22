@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { selectMenu } from '../actions';
+
 import MessageBox from '../components/basics/MessageBox';
 
 class Header extends React.Component {
@@ -11,30 +13,30 @@ class Header extends React.Component {
 				<div className="ui secondary pointing menu">
 					<Link
 						to="/"
-						className={`item ${selectedMenu === 'home' ? 'active' : ''}`}
-						onClick={() => setSelectedMenu('home')}
+						className={`item ${this.props.selectedMenu === 'home' ? 'active' : ''}`}
+						onClick={() => this.props.selectMenu('home')}
 					>
 						Project Manager Desktop
 					</Link>
 					<div className="right menu">
 						<Link
 							to="/todos"
-							className={`item ${selectedMenu === 'todos' ? 'active' : ''}`}
-							onClick={() => setSelectedMenu('todos')}
+							className={`item ${this.props.selectedMenu === 'todos' ? 'active' : ''}`}
+							onClick={() => this.props.selectMenu('todos')}
 						>
 							TODOS
 						</Link>
 						<Link
 							to="/users"
-							className={`item ${selectedMenu === 'users' ? 'active' : ''}`}
-							onClick={() => setSelectedMenu('users')}
+							className={`item ${this.props.selectedMenu === 'users' ? 'active' : ''}`}
+							onClick={() => this.props.selectMenu('users')}
 						>
 							Users
 						</Link>
 						<Link
 							to="/products"
-							className={`item ${selectedMenu === 'products' ? 'active' : ''}`}
-							onClick={() => setSelectedMenu('products')}
+							className={`item ${this.props.selectedMenu === 'products' ? 'active' : ''}`}
+							onClick={() => this.props.selectMenu('products')}
 						>
 							Products
 						</Link>
@@ -46,15 +48,15 @@ class Header extends React.Component {
 						</div>
 					</div>
 				</div>
-				<MessageBox message={this.props.globalMessage} type="error" />
+				<MessageBox {...this.props.globalMessage} />
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = (state) => ({
-	selectedMenu: state.header.selectedMenu,
+	selectedMenu: state.header.menu,
 	globalMessage: state.header.globalMessage
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { selectMenu })(Header);

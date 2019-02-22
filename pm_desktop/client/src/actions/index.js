@@ -18,10 +18,15 @@ import {
 	FETCH_TODO,
 	UPDATE_TODO,
 	CREATE_TODO,
-	UPDATE_TODO_PROPERTY_VALUE
+	UPDATE_TODO_PROPERTY_VALUE,
+	SELECT_MENU
 } from './types';
 
 import history from '../components/history';
+
+export const selectMenu = (menu) => {
+	return { type: SELECT_MENU, menu };
+};
 
 export const showGlobalMessage = (params) => {
 	return {
