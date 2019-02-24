@@ -2,21 +2,33 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { selectMenu } from '../actions';
+import { selectMenu, hideGlobalMessage } from '../actions';
 
 import MessageBox from '../components/basics/MessageBox';
 
 class Header extends React.Component {
+	renderMessageBox(messageParams) {
+		if (messageParams.show) {
+			return <MessageBox {...messageParams} onClose={this.onCloseMessageBox} />;
+		}
+
+		return <div />;
+	}
+
+	onCloseMessageBox = () => {
+		this.props.hideGlobalMessage();
+	};
+
 	render() {
 		return (
 			<div>
-				<div className="ui secondary pointing menu">
+				<div className="ui vertical fluid tabular menu">
 					<Link
 						to="/"
 						className={`item ${this.props.selectedMenu === 'home' ? 'active' : ''}`}
 						onClick={() => this.props.selectMenu('home')}
 					>
-						Project Manager Desktop
+						Product Manager Desktop
 					</Link>
 					<div className="right menu">
 						<Link
@@ -48,7 +60,7 @@ class Header extends React.Component {
 						</div>
 					</div>
 				</div>
-				<MessageBox {...this.props.globalMessage} />
+				{this.renderMessageBox(this.props.globalMessage)}
 			</div>
 		);
 	}
@@ -59,4 +71,4 @@ const mapStateToProps = (state) => ({
 	globalMessage: state.header.globalMessage
 });
 
-export default connect(mapStateToProps, { selectMenu })(Header);
+export default connect(mapStateToProps, { selectMenu, hideGlobalMessage })(Header);

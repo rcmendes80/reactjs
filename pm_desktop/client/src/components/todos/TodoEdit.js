@@ -20,12 +20,13 @@ class TodoEdit extends React.Component {
 	};
 
 	render() {
-		//TODO FIX THIS!
 		return (
 			<TodoForm
 				onSubmit={this.onSave}
 				initialValues={this.props.todo}
 				onChangeFieldValue={this.onChangeFieldValue}
+				title="Edit a Todo"
+				details="Edit the form below to update todo."
 			/>
 		);
 	}

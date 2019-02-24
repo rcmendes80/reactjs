@@ -83,7 +83,7 @@ export const updateProduct = (formValues) => async (dispatch) => {
 	// history.push('/products');
 };
 
-export const fetchTodos = () => async (dispatch) => {
+export const fetchTodos = () => async (dispatch, getState) => {
 	dispatch({
 		type: FETCH_TODOS,
 		loading: true
@@ -98,12 +98,13 @@ export const fetchTodos = () => async (dispatch) => {
 		});
 	} catch (e) {
 		console.error(e);
-		dispatch({
-			type: FETCH_TODOS,
-			loading: false,
-			isError: true,
-			errorMessage: e.message
-		});
+		dispatch(
+			showGlobalMessage({
+				type: 'error',
+				title: 'Error on loading Todo list',
+				details: e.message
+			})
+		);
 	}
 };
 
@@ -141,6 +142,13 @@ export const createTodo = (todo) => async (dispatch) => {
 			success: true,
 			payload: response.data
 		});
+
+		dispatch(
+			showGlobalMessage({
+				type: 'success',
+				title: 'Todo created successfully!'
+			})
+		);
 		history.push('/todos');
 	} catch (e) {
 		dispatch({
@@ -165,6 +173,12 @@ export const updateTodo = (todo) => async (dispatch) => {
 			success: true,
 			payload: response.data
 		});
+		dispatch(
+			showGlobalMessage({
+				type: 'success',
+				title: 'Todo updated successfully!'
+			})
+		);
 		history.push('/todos');
 	} catch (e) {
 		dispatch({

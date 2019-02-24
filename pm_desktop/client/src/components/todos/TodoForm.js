@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import InputTextForm from '../basics/InputTextForm';
 import InputCheckboxForm from '../basics/InputCheckboxForm';
+import InputTextAreaForm from '../basics/InputTextAreaForm';
 
 const TodoForm = (props) => {
 	const { initialValues } = props;
@@ -30,8 +32,8 @@ const TodoForm = (props) => {
 	return (
 		<div>
 			<div className="ui attached message">
-				<div className="header">Create a new Todo</div>
-				<p>Fill out the form below to create a new todo.</p>
+				<div className="header">{props.title}</div>
+				<p>{props.details}</p>
 			</div>
 			<div className="ui form attached fluid segment">
 				<InputTextForm
@@ -43,7 +45,7 @@ const TodoForm = (props) => {
 					onChange={props.onChangeFieldValue}
 					validate={validateTitleField}
 				/>
-				<InputTextForm
+				<InputTextAreaForm
 					name="description"
 					placeholder="Enter a Description"
 					label="Description"
@@ -59,6 +61,14 @@ const TodoForm = (props) => {
 			</div>
 		</div>
 	);
+};
+
+TodoForm.propTypes = {
+	title: PropTypes.string.isRequired,
+	details: PropTypes.string.isRequired,
+	onSubmit: PropTypes.func.isRequired,
+	initialValues: PropTypes.object,
+	onChangeFieldValue: PropTypes.func.isRequired
 };
 
 export default TodoForm;

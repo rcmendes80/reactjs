@@ -5,7 +5,15 @@ const renderError = (errors) => {
 	return errors.length > 0 ? <div className="ui pointing red basic label">{errors}</div> : '';
 };
 
-const InputTextForm = ({ name, onChange, placeholder = '', label, required = false, value = '', validate = null }) => {
+const InputTextAreaForm = ({
+	name,
+	onChange,
+	placeholder = '',
+	label,
+	required = false,
+	value = '',
+	validate = null
+}) => {
 	const [ errors, setErrors ] = useState([]);
 
 	const fieldClassName = `field ${required ? 'required' : ''} ${errors.length > 0 ? 'error' : ''}`;
@@ -19,7 +27,8 @@ const InputTextForm = ({ name, onChange, placeholder = '', label, required = fal
 	return (
 		<div className={fieldClassName}>
 			<label>{label}</label>
-			<input
+			<textarea
+				rows="2"
 				name={name}
 				placeholder={placeholder}
 				value={value}
@@ -31,11 +40,11 @@ const InputTextForm = ({ name, onChange, placeholder = '', label, required = fal
 	);
 };
 
-InputTextForm.propTypes = {
+InputTextAreaForm.propTypes = {
 	name: PropTypes.string.isRequired,
 	placeholder: PropTypes.string,
 	value: PropTypes.string,
 	onChange: PropTypes.func.isRequired
 };
 
-export default InputTextForm;
+export default InputTextAreaForm;

@@ -34,14 +34,14 @@
   "todos": [
     {
       "id": 1,
-      "title": "Arrange an appointment with Process Team 2",
-      "description": "The purpose of the meeting is to discuss about the new enterprise value chain 2",
+      "title": "Arrange an appointment with Process Team.",
+      "description": "The purpose of the meeting is to discuss the new enterprise value chain.",
       "done": true
     },
     {
       "id": 2,
       "title": "Publish new version of application into production environment",
-      "description": "The new version will improve the overral product SLA"
+      "description": "The new version will improve the overral product SLA."
     },
     {
       "title": "abc",
@@ -51,7 +51,7 @@
     },
     {
       "title": "Implement validation on TODO creation",
-      "description": "Implement validation of required fields on Todo creation form.",
+      "description": "Implement validation of required fields on Todo creation form",
       "id": 4
     },
     {
@@ -118,6 +118,18 @@
       "description": "asdfgh",
       "done": false,
       "id": 16
+    },
+    {
+      "title": "Test with message",
+      "description": "",
+      "done": false,
+      "id": 17
+    },
+    {
+      "title": "XXXXXX",
+      "description": "YYYYYYY",
+      "done": true,
+      "id": 18
     }
   ]
 }

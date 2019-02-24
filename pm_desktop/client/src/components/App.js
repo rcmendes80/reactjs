@@ -17,18 +17,22 @@ const App = () => {
 	return (
 		<div className="ui container">
 			<Router history={history}>
-				<div>
-					<Header />
-					<Switch>
-						<Route path="/users" exact component={UserList} />
-						<Route path="/todos" exact component={TodoList} />
-						<Route path="/todos/new" exact component={TodoCreate} />
-						<Route path="/todos/edit/:id" exact component={TodoEdit} />
-						<Route path="/products" exact component={ProductList} />
-						<Route path="/products/new" exact component={ProductCreate} />
-						<Route path="/products/edit/:id" exact component={ProductEdit} />
-						<Route path="/products/:productId/logbooks" exact component={LogbookList} />
-					</Switch>
+				<div className="ui grid">
+					<div className="four wide column">
+						<Header />
+					</div>
+					<div className="twelve wide stretched column">
+						<Switch>
+							<Route path="/users" exact component={UserList} />
+							<Route path="/todos" exact component={TodoList} />
+							<Route path="/todos/new" exact component={TodoCreate} />
+							<Route path="/todos/edit/:id" exact component={TodoEdit} />
+							<Route path="/products" exact component={ProductList} />
+							<Route path="/products/new" exact component={ProductCreate} />
+							<Route path="/products/edit/:id" exact component={ProductEdit} />
+							<Route path="/products/:productId/logbooks" exact component={LogbookList} />
+						</Switch>
+					</div>
 				</div>
 			</Router>
 		</div>

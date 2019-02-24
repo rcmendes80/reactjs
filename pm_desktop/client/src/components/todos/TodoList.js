@@ -10,31 +10,38 @@ class TodoList extends React.Component {
 		this.props.fetchTodos();
 	}
 
+	renderActions(todo) {
+		return (
+			<div className="right floated content">
+				<Link to={`/todos/edit/${todo.id}`}>
+					<i className="bordered inverted edit outline icon teal" />
+				</Link>
+				<Link to={`/todos/delete/${todo.id}`}>
+					<i className="bordered inverted trash alternate outline icon red" />
+				</Link>
+			</div>
+		);
+	}
+
 	renderList() {
 		if (this.props.loading) {
 			return <MessageBox title="Loading..." />;
 		}
 
-		if (this.props.isError) {
-			// TODO move to scenarios of error in todo action creators
-			this.props.showGlobalMessage({
-				type: 'error',
-				title: 'Error on loading Todo list' //,details: this.props.errorMessage
-			});
-			return <div />;
-		}
-
 		return this.props.todos.map((todo) => {
-			const style = todo.done ? { textDecoration: 'line-through' } : {};
+			const styleDone = todo.done ? { textDecoration: 'line-through', color: 'grey', fontWeight: 'lighter' } : {};
 			return (
-				<Link to={`/todos/edit/${todo.id}`} className="item" key={todo.id}>
+				<div className="item" key={todo.id}>
+					{this.renderActions(todo)}
 					<div className="content">
-						<div className="header">
-							<span style={style}>{todo.title}</span>
+						<div className="header" style={styleDone}>
+							{todo.title}
 						</div>
-						<div className="description">{todo.description}</div>
+						<div className="description" style={styleDone}>
+							{todo.description}
+						</div>
 					</div>
-				</Link>
+				</div>
 			);
 		});
 	}
@@ -42,7 +49,11 @@ class TodoList extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="ui relaxed divided list">{this.renderList()}</div>
+				<div className="ui attached message">
+					<div className="header">Todo List</div>
+					<p>List of all todos.</p>
+				</div>
+				<div className="ui relaxed divided list segment">{this.renderList()}</div>
 			</div>
 		);
 	}

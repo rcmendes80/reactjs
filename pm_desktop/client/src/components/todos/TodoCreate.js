@@ -27,6 +27,8 @@ class TodoCreate extends React.Component {
 				onSubmit={this.onSave}
 				initialValues={this.state.todo}
 				onChangeFieldValue={this.onChangeFieldValue}
+				title="Create a new Todo"
+				details="Fill out the form below to create a new todo."
 			/>
 		);
 	}
