@@ -13,7 +13,6 @@ const MessageBox = (props) => {
 	};
 
 	const onShow = () => {
-		console.log('apareceu----------');
 		setTimeout(() => {
 			onCloseClick();
 		}, 2000);
