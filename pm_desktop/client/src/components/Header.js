@@ -22,7 +22,7 @@ class Header extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="ui vertical fluid tabular menu">
+				<div className="ui secondary pointing menu">
 					<Link
 						to="/"
 						className={`item ${this.props.selectedMenu === 'home' ? 'active' : ''}`}
