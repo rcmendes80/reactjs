@@ -12,6 +12,15 @@ const MessageBox = (props) => {
 		}, 300);
 	};
 
+	const onShow = () => {
+		console.log('apareceu----------');
+		setTimeout(() => {
+			onCloseClick();
+		}, 2000);
+	};
+
+	onShow();
+
 	return (
 		<div className={className}>
 			<i className="close icon" onClick={onCloseClick} />

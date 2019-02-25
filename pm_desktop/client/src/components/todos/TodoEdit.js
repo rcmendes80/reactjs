@@ -32,6 +32,6 @@ class TodoEdit extends React.Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => ({ todo: state.todos.data[ownProps.match.params.id] });
+const mapStateToProps = (state, ownProps) => ({ todo: state.todos[ownProps.match.params.id] });
 
 export default connect(mapStateToProps, { updateTodo, fetchTodo, updateTodoPropertyValue })(TodoEdit);

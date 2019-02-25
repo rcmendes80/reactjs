@@ -61,10 +61,7 @@ class TodoList extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		todos: Object.values(state.todos.data),
-		isError: state.todos.isError,
-		errorMessage: state.todos.errorMessage,
-		isLoading: state.todos.loading
+		todos: Object.values(state.todos)
 	};
 };
 

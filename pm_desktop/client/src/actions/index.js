@@ -19,7 +19,8 @@ import {
 	UPDATE_TODO,
 	CREATE_TODO,
 	UPDATE_TODO_PROPERTY_VALUE,
-	SELECT_MENU
+	SELECT_MENU,
+	DELETE_TODO
 } from './types';
 
 import history from '../components/history';
@@ -84,16 +85,10 @@ export const updateProduct = (formValues) => async (dispatch) => {
 };
 
 export const fetchTodos = () => async (dispatch, getState) => {
-	dispatch({
-		type: FETCH_TODOS,
-		loading: true
-	});
-
 	try {
 		const response = await pmDesktopAPI.get('/todos');
 		dispatch({
 			type: FETCH_TODOS,
-			loading: false,
 			payload: response.data
 		});
 	} catch (e) {
@@ -109,37 +104,31 @@ export const fetchTodos = () => async (dispatch, getState) => {
 };
 
 export const fetchTodo = (id) => async (dispatch) => {
-	dispatch({ type: FETCH_TODO, loading: true });
-
 	try {
 		const response = await pmDesktopAPI.get(`/todos/${id}`);
 
 		dispatch({
 			type: FETCH_TODO,
-			success: true,
 			payload: response.data
 		});
 	} catch (e) {
-		dispatch({
-			type: FETCH_TODO,
-			isError: true,
-			errorMessage: e.message
-		});
+		console.error(e);
+		dispatch(
+			showGlobalMessage({
+				type: 'error',
+				title: 'Error on fetching Todo',
+				details: e.message
+			})
+		);
 	}
 };
 
 export const createTodo = (todo) => async (dispatch) => {
-	dispatch({
-		type: CREATE_TODO,
-		loading: true
-	});
-
 	try {
 		const response = await pmDesktopAPI.post('/todos', todo);
 
 		dispatch({
 			type: CREATE_TODO,
-			success: true,
 			payload: response.data
 		});
 
@@ -151,26 +140,23 @@ export const createTodo = (todo) => async (dispatch) => {
 		);
 		history.push('/todos');
 	} catch (e) {
-		dispatch({
-			type: CREATE_TODO,
-			isError: true,
-			errorMessage: e.message
-		});
+		console.error(e);
+		dispatch(
+			showGlobalMessage({
+				type: 'error',
+				title: 'Error on creating Todo',
+				details: e.message
+			})
+		);
 	}
 };
 
 export const updateTodo = (todo) => async (dispatch) => {
-	dispatch({
-		type: UPDATE_TODO,
-		loading: true
-	});
-
 	try {
 		const response = await pmDesktopAPI.patch(`/todos/${todo.id}`, todo);
 
 		dispatch({
 			type: UPDATE_TODO,
-			success: true,
 			payload: response.data
 		});
 		dispatch(
@@ -181,11 +167,43 @@ export const updateTodo = (todo) => async (dispatch) => {
 		);
 		history.push('/todos');
 	} catch (e) {
+		console.error(e);
+		dispatch(
+			showGlobalMessage({
+				type: 'error',
+				title: 'Error on updating Todo',
+				details: e.message
+			})
+		);
+	}
+};
+
+export const deleteTodo = (id) => async (dispatch) => {
+	try {
+		await pmDesktopAPI.delete(`/todos/${id}`, id);
+
 		dispatch({
-			type: UPDATE_TODO,
-			isError: true,
-			errorMessage: e.message
+			type: DELETE_TODO,
+			payload: id
 		});
+
+		dispatch(
+			showGlobalMessage({
+				type: 'success',
+				title: 'Todo deleted successfully!'
+			})
+		);
+		history.push('/todos');
+	} catch (e) {
+		console.error(e);
+		dispatch(
+			showGlobalMessage({
+				type: 'error',
+				title: 'Error on delete Todo',
+				details: e.message
+			})
+		);
+		history.push('/todos');
 	}
 };
 

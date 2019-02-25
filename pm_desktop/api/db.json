@@ -36,7 +36,7 @@
       "id": 1,
       "title": "Arrange an appointment with Process Team.",
       "description": "The purpose of the meeting is to discuss the new enterprise value chain.",
-      "done": true
+      "done": false
     },
     {
       "id": 2,
@@ -53,21 +53,6 @@
       "title": "Implement validation on TODO creation",
       "description": "Implement validation of required fields on Todo creation form",
       "id": 4
-    },
-    {
-      "title": "x",
-      "description": "y",
-      "id": 5
-    },
-    {
-      "title": "t",
-      "description": "d",
-      "id": 6
-    },
-    {
-      "title": "o",
-      "description": "p",
-      "id": 7
     },
     {
       "title": "Title X",
@@ -88,30 +73,16 @@
       "done": false
     },
     {
-      "title": "a",
-      "description": "b",
-      "id": 11
-    },
-    {
       "title": "Aloha!!!!",
       "description": "",
       "id": 12,
       "done": false
     },
     {
-      "title": "a",
-      "description": "b",
-      "id": 13
-    },
-    {
       "title": "aaaa",
-      "description": "",
-      "id": 14
-    },
-    {
-      "title": "xxxxxxx",
-      "description": "",
-      "id": 15
+      "description": "123",
+      "id": 14,
+      "done": true
     },
     {
       "title": "qwerty",
@@ -124,12 +95,6 @@
       "description": "",
       "done": false,
       "id": 17
-    },
-    {
-      "title": "XXXXXX",
-      "description": "YYYYYYY",
-      "done": true,
-      "id": 18
     }
   ]
 }
