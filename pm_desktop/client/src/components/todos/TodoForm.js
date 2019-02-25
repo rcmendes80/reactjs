@@ -36,15 +36,31 @@ const TodoForm = (props) => {
 				<p>{props.details}</p>
 			</div>
 			<div className="ui form attached fluid segment">
-				<InputTextForm
-					name="title"
-					placeholder="Enter a title"
-					label="Title"
-					required={true}
-					value={title}
-					onChange={props.onChangeFieldValue}
-					validate={validateTitleField}
-				/>
+				<div class="fields">
+					<div class="twelve wide field">
+						<InputTextForm
+							name="title"
+							placeholder="Enter a title"
+							label="Title"
+							required={true}
+							value={title}
+							onChange={props.onChangeFieldValue}
+							validate={validateTitleField}
+						/>
+					</div>
+					<div className="four wide field">
+						<label>Due</label>
+						<div class="fields">
+							<div class="twelve wide field">
+								<input type="date" placeholder="First Name" />
+							</div>
+							<div class="four wide field">
+								<input type="time" placeholder="Middle Name" />
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<InputTextAreaForm
 					name="description"
 					placeholder="Enter a Description"
