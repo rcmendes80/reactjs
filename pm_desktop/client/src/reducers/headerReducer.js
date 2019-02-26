@@ -1,4 +1,4 @@
-import { SHOW_GLOBAL_MESSAGE, HIDE_GLOBAL_MESSAGE, SELECT_MENU } from '../actions/types';
+import { SHOW_GLOBAL_MESSAGE, HIDE_GLOBAL_MESSAGE, SELECT_MENU, SHOW_LOAD_SPINNER } from '../actions/types';
 const INITIAL_STATE = {
 	menu: 'home',
 	globalMessage: {
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 	}
 };
 export default (state = INITIAL_STATE, action) => {
-	const { type, globalMessage, menu } = action;
+	const { type, globalMessage, menu, loading = false } = action;
 
 	switch (type) {
 		case SELECT_MENU:
@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, globalMessage };
 		case HIDE_GLOBAL_MESSAGE:
 			return { ...state, globalMessage };
+		case SHOW_LOAD_SPINNER:
+			return { ...state, loading };
 		default:
 			return state;
 	}

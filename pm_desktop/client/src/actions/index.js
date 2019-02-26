@@ -3,6 +3,7 @@ import pmDesktopAPI from '../apis/pmDesktopAPI';
 import {
 	SHOW_GLOBAL_MESSAGE,
 	HIDE_GLOBAL_MESSAGE,
+	SHOW_LOAD_SPINNER,
 	FETCH_USERS,
 	// FETCH_USER,
 	// CREATE_USER,
@@ -48,6 +49,13 @@ export const hideGlobalMessage = () => {
 	};
 };
 
+export const showLoadSpinner = (loading) => {
+	return {
+		type: SHOW_LOAD_SPINNER,
+		loading
+	};
+};
+
 //USERS ACTIONS
 export const fetchUsers = () => async (dispatch) => {
 	const response = await jsonPlaceholder.get('/users');
@@ -84,25 +92,29 @@ export const updateProduct = (formValues) => async (dispatch) => {
 	// history.push('/products');
 };
 
-export const fetchTodos = () => async (dispatch, getState) => {
-	try {
-		const response = await pmDesktopAPI.get('/todos');
-		dispatch({
-			type: FETCH_TODOS,
-			payload: response.data
-		});
-	} catch (e) {
-		console.error(e);
-		dispatch(
-			showGlobalMessage({
-				type: 'error',
-				title: 'Error on loading Todo list',
-				details: e.message
-			})
-		);
-	}
+export const fetchTodos = () => async (dispatch) => {
+	dispatch(showLoadSpinner(true));
+	setTimeout(async () => {
+		try {
+			const response = await pmDesktopAPI.get('/todos');
+			dispatch({
+				type: FETCH_TODOS,
+				payload: response.data
+			});
+		} catch (e) {
+			console.error(e);
+			dispatch(
+				showGlobalMessage({
+					type: 'error',
+					title: 'Error on loading Todo list',
+					details: e.message
+				})
+			);
+		} finally {
+			dispatch(showLoadSpinner(false));
+		}
+	}, 3000);
 };
-
 export const fetchTodo = (id) => async (dispatch) => {
 	try {
 		const response = await pmDesktopAPI.get(`/todos/${id}`);

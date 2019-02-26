@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTodos, showGlobalMessage } from '../../actions';
 
-import MessageBox from '../basics/MessageBox';
+import LoadSpinner from '../basics/LoadSpinner';
 
 class TodoList extends React.Component {
 	componentDidMount() {
@@ -24,10 +24,6 @@ class TodoList extends React.Component {
 	}
 
 	renderList() {
-		if (this.props.loading) {
-			return <MessageBox title="Loading..." />;
-		}
-
 		return this.props.todos.map((todo) => {
 			const styleDone = todo.done ? { textDecoration: 'line-through', color: 'grey', fontWeight: 'lighter' } : {};
 			return (
@@ -47,6 +43,10 @@ class TodoList extends React.Component {
 	}
 
 	render() {
+		if (this.props.loading) {
+			return <LoadSpinner />;
+		}
+
 		return (
 			<div>
 				<div className="ui attached message">
@@ -61,7 +61,8 @@ class TodoList extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		todos: Object.values(state.todos)
+		todos: Object.values(state.todos),
+		loading: state.header.loading
 	};
 };
 
