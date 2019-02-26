@@ -30,6 +30,13 @@ export default (state = INITIAL_STATE, action) => {
 			return newState;
 		case UPDATE_TODO_PROPERTY_VALUE:
 			const { id, property, value } = payload;
+			const dueIndex = property.indexOf('due');
+
+			if (dueIndex >= 0) {
+				const dateOrTime = property.split('.')[1];
+				const updatedTodo = { ...state[id], due: { ...state[id].due, [dateOrTime]: value } };
+				return { ...state, [id]: updatedTodo };
+			}
 			const updatedTodo = { ...state[id], [property]: value };
 			return { ...state, [id]: updatedTodo };
 		default:
