@@ -94,26 +94,24 @@ export const updateProduct = (formValues) => async (dispatch) => {
 
 export const fetchTodos = () => async (dispatch) => {
 	dispatch(showLoadSpinner(true));
-	setTimeout(async () => {
-		try {
-			const response = await pmDesktopAPI.get('/todos');
-			dispatch({
-				type: FETCH_TODOS,
-				payload: response.data
-			});
-		} catch (e) {
-			console.error(e);
-			dispatch(
-				showGlobalMessage({
-					type: 'error',
-					title: 'Error on loading Todo list',
-					details: e.message
-				})
-			);
-		} finally {
-			dispatch(showLoadSpinner(false));
-		}
-	}, 3000);
+	try {
+		const response = await pmDesktopAPI.get('/todos');
+		dispatch({
+			type: FETCH_TODOS,
+			payload: response.data
+		});
+	} catch (e) {
+		console.error(e);
+		dispatch(
+			showGlobalMessage({
+				type: 'error',
+				title: 'Error on loading Todo list',
+				details: e.message
+			})
+		);
+	} finally {
+		dispatch(showLoadSpinner(false));
+	}
 };
 export const fetchTodo = (id) => async (dispatch) => {
 	try {
