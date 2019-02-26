@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import InputTextForm from '../basics/InputTextForm';
 import InputCheckboxForm from '../basics/InputCheckboxForm';
@@ -7,9 +8,15 @@ import InputTextAreaForm from '../basics/InputTextAreaForm';
 
 const TodoForm = (props) => {
 	const { initialValues } = props;
+	console.log('#: TodoForm -> initialValues', initialValues);
 	const title = initialValues ? initialValues.title : '';
 	const description = initialValues ? initialValues.description : '';
 	const done = initialValues ? initialValues.done : false;
+	const dueDate =
+		initialValues && initialValues.due && initialValues.due.date
+			? initialValues.due.date
+			: moment().format('YYYY-MM-DD');
+	const dueTime = initialValues && initialValues.due && initialValues.due.time ? initialValues.due.time : '12:00';
 
 	const validateTitleField = () => {
 		let errors = [];
@@ -36,8 +43,8 @@ const TodoForm = (props) => {
 				<p>{props.details}</p>
 			</div>
 			<div className="ui form attached fluid segment">
-				<div class="fields">
-					<div class="twelve wide field">
+				<div className="fields">
+					<div className="twelve wide field">
 						<InputTextForm
 							name="title"
 							placeholder="Enter a title"
@@ -48,14 +55,24 @@ const TodoForm = (props) => {
 							validate={validateTitleField}
 						/>
 					</div>
-					<div className="four wide field">
+					<div className="field">
 						<label>Due</label>
-						<div class="fields">
-							<div class="twelve wide field">
-								<input type="date" placeholder="First Name" />
+						<div className="fields">
+							<div className="twelve wide field">
+								<input
+									type="date"
+									value={dueDate}
+									name="due.date"
+									onChange={(e) => props.onChangeFieldValue('due.date', e.target.value)}
+								/>
 							</div>
-							<div class="four wide field">
-								<input type="time" placeholder="Middle Name" />
+							<div className="six wide field">
+								<input
+									type="time"
+									value={dueTime}
+									name="due.time"
+									onChange={(e) => props.onChangeFieldValue('due.time', e.target.value)}
+								/>
 							</div>
 						</div>
 					</div>
