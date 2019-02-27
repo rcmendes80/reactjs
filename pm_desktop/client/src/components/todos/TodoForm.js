@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
@@ -8,7 +8,9 @@ import InputTextAreaForm from '../basics/InputTextAreaForm';
 
 const TodoForm = (props) => {
 	const { initialValues } = props;
-	console.log('#: TodoForm -> initialValues', initialValues);
+
+	const [ due, setDue ] = useState(initialValues.due ? true : false);
+
 	const title = initialValues ? initialValues.title : '';
 	const description = initialValues ? initialValues.description : '';
 	const done = initialValues ? initialValues.done : false;
@@ -55,24 +57,32 @@ const TodoForm = (props) => {
 							validate={validateTitleField}
 						/>
 					</div>
-					<div className="field">
-						<label>Due</label>
-						<div className="fields">
-							<div className="twelve wide field">
-								<input
-									type="date"
-									value={dueDate}
-									name="due.date"
-									onChange={(e) => props.onChangeFieldValue('due.date', e.target.value)}
-								/>
-							</div>
-							<div className="six wide field">
-								<input
-									type="time"
-									value={dueTime}
-									name="due.time"
-									onChange={(e) => props.onChangeFieldValue('due.time', e.target.value)}
-								/>
+					<div className="inline field">
+						<div className="ui toggle checkbox">
+							<input type="checkbox" className="hidden" tabIndex="0" name="due" checked={due} readOnly />
+							<label onClick={setDue(!due)}>Due</label>
+						</div>
+					</div>
+					<div className="ui segment">
+						<div className="field">
+							<label>Due</label>
+							<div className="fields">
+								<div className="twelve wide field">
+									<input
+										type="date"
+										value={dueDate}
+										name="due.date"
+										onChange={(e) => props.onChangeFieldValue('due.date', e.target.value)}
+									/>
+								</div>
+								<div className="six wide field">
+									<input
+										type="time"
+										value={dueTime}
+										name="due.time"
+										onChange={(e) => props.onChangeFieldValue('due.time', e.target.value)}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
