@@ -8,7 +8,7 @@ import ProductForm from './ProductForm';
 class ProductCreate extends React.Component {
 	onSubmit = (formValues) => {
 		console.log(formValues);
-		this.props.createProduct(formValues);
+		//this.props.createProduct(formValues);
 	};
 
 	onAddTag = (title) => {
@@ -25,9 +25,8 @@ class ProductCreate extends React.Component {
 					onAddTag={this.onAddTag}
 					initialValues={{
 						name: 'XXXXXX',
-						tags: [ { id: 1, title: 'Tag A' }, { id: 2, title: 'Tag B' }, { id: 3, title: 'Tag C' } ]
+						tags: [ 'Tag A', 'Tag B', 'Tag C' ]
 					}}
-					initialValuessss={_.pick(this.props.initialValues, 'name', 'description', 'tags')}
 				/>
 			</div>
 		);

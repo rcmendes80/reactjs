@@ -39,8 +39,7 @@ class ProductEdit extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-	initialValues: state.products[ownProps.match.params.id],
-	form: state.form
+	initialValues: state.products[ownProps.match.params.id]
 });
 
 export default connect(mapStateToProps, { updateProduct, fetchProduct })(ProductEdit);
