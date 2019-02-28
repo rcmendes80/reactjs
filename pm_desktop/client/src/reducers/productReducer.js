@@ -6,13 +6,11 @@ export default (state = {}, { type, payload }) => {
 		case FETCH_PRODUCTS:
 			return { ...state, ..._.mapKeys(payload, 'id') };
 		case FETCH_PRODUCT:
-			return { ...state, [payload.id]: payload };
 		case CREATE_PRODUCT:
-			return { ...state, [payload.id]: payload };
 		case UPDATE_PRODUCT:
 			return { ...state, [payload.id]: payload };
 		case DELETE_PRODUCT:
-			return state;
+			return _.omit(state, payload);
 		default:
 			return state;
 	}

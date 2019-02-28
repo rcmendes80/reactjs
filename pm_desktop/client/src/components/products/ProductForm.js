@@ -30,25 +30,29 @@ class ProductForm extends React.Component {
 	};
 
 	renderInputHidden({ input }) {
-		return <input {...input} type="text" />;
+		return <input {...input} type="hidden" />;
 	}
 
 	renderTags = () => {
-		if (this.props.currentForm) {
+		if (this.props.currentForm && this.props.currentForm.values) {
 			const { tags } = this.props.currentForm.values;
-			if (tags) {
-				return tags.map((tag, idx) => {
-					return (
-						<div className="ui right left icon input" key={idx}>
-							<button className="ui tag label teal">
-								{tag}
-								<i className="icon close " onClick={() => this.onRemoveTag(tag)} />
-							</button>
-						</div>
-					);
-				});
+			if (tags && tags.length > 0) {
+				return <div className="ui segment">{this.renderTagsItems(tags)}</div>;
 			}
 		}
+	};
+
+	renderTagsItems = (tags) => {
+		return tags.map((tag, idx) => {
+			return (
+				<div className="ui right left icon input" key={idx}>
+					<button className="ui tag label teal">
+						{tag}
+						<i className="icon close " onClick={() => this.onRemoveTag(tag)} />
+					</button>
+				</div>
+			);
+		});
 	};
 
 	renderTagInput = ({ input, placeholder }) => {
@@ -56,7 +60,7 @@ class ProductForm extends React.Component {
 			<div>
 				<div className="ui right labeled left icon input">
 					<i className="tags icon" />
-					<input placeholder={placeholder} {...input} />
+					<input placeholder={placeholder} {...input} onKeyUp={(e) => this.onEnterAddTag(e, input.value)} />
 					<button className="ui tag label" onClick={(e) => this.onAddTag(input.value)}>
 						Add Tag
 					</button>
@@ -65,30 +69,21 @@ class ProductForm extends React.Component {
 		);
 	};
 
-	onAddTag = (tag) => {
-		console.log('#: onAddTag -> tag', tag);
-		console.log('form values', this.props);
-
-		const newTagList = [ ...this.props.currentForm.values.tags, tag ];
-		// this.props.onAddTag(tag);
-		// this.props.clea
-		this.props.change('newTag', '');
-		this.props.change('tags', newTagList);
-		// this.props.reset();
-		// e.preventDefault();
+	onEnterAddTag = (e, tag) => {
+		if (e.key === 'Enter') {
+			this.onAddTag(tag);
+		}
 	};
 
-	onKeyPress = (e) => {
-		if (e.key === 'Enter') {
-			e.preventDefault();
-		}
+	onAddTag = (tag) => {
+		const currTags = this.props.currentForm.values.tags;
+		let newTagList = Array.isArray(currTags) ? currTags : [];
+		newTagList = [ ...newTagList, tag ];
+		this.props.change('newTag', '');
+		this.props.change('tags', newTagList);
 	};
 
 	render() {
-		if (!this.props.initialValues) {
-			return <div>Loading...</div>;
-		}
-
 		return (
 			<div>
 				<div className="ui form error">
@@ -101,7 +96,7 @@ class ProductForm extends React.Component {
 					/>
 					<Field name="newTag" component={this.renderTagInput} label="Tag" placeholder="Enter new tag" />
 					<Field name="tags" component={this.renderInputHidden} />
-					<div className="ui segment">{this.renderTags()}</div>
+					{this.renderTags()}
 					<div className="ui buttons">
 						<button
 							className="ui button primary"

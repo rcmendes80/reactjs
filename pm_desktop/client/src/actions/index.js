@@ -11,10 +11,9 @@ import {
 	// DELETE_USER,
 	FETCH_PRODUCTS,
 	FETCH_PRODUCT,
-	// CREATE_PRODUCT,
-	// UPDATE_PRODUCT,
-	// DELETE_PRODUCT,
-	// UPDATE_PRODUCT,
+	CREATE_PRODUCT,
+	UPDATE_PRODUCT,
+	DELETE_PRODUCT,
 	FETCH_TODOS,
 	FETCH_TODO,
 	UPDATE_TODO,
@@ -80,9 +79,9 @@ export const fetchProduct = (id) => async (dispatch) => {
 
 export const createProduct = (formValues) => async (dispatch) => {
 	console.log('CREATE product action', formValues);
-	// const response = await pmDesktopAPI.post('/products', formValues);
-	// dispatch({ type: CREATE_PRODUCT, payload: response.data });
-	//history.push('/products');
+	const response = await pmDesktopAPI.post('/products', formValues);
+	dispatch({ type: CREATE_PRODUCT, payload: response.data });
+	history.push('/products');
 };
 
 export const updateProduct = (formValues) => async (dispatch) => {

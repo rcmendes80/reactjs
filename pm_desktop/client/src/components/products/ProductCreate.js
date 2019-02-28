@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createProduct } from '../../actions';
-import _ from 'lodash';
 
 import ProductForm from './ProductForm';
 
 class ProductCreate extends React.Component {
 	onSubmit = (formValues) => {
-		console.log(formValues);
-		//this.props.createProduct(formValues);
+		if (formValues) {
+			delete formValues.newTag;
+			this.props.createProduct(formValues);
+		}
 	};
 
 	onAddTag = (title) => {
@@ -20,14 +21,7 @@ class ProductCreate extends React.Component {
 		return (
 			<div>
 				<h3>Create a Product</h3>
-				<ProductForm
-					onSubmit={this.onSubmit}
-					onAddTag={this.onAddTag}
-					initialValues={{
-						name: 'XXXXXX',
-						tags: [ 'Tag A', 'Tag B', 'Tag C' ]
-					}}
-				/>
+				<ProductForm onSubmit={this.onSubmit} onAddTag={this.onAddTag} />
 			</div>
 		);
 	}

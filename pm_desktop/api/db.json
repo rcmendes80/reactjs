@@ -26,6 +26,26 @@
         "t2"
       ],
       "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Product number 1",
+      "description": "Description product number 1",
+      "tags": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "name": "Product number 2",
+      "description": "Description of product number 2",
+      "tags": [
+        "X",
+        "Y",
+        "Z"
+      ],
+      "id": 6
     }
   ],
   "users": [],
