@@ -9,7 +9,7 @@ import InputTextAreaForm from '../basics/InputTextAreaForm';
 const TodoForm = (props) => {
 	const { initialValues } = props;
 
-	const [ due, setDue ] = useState(initialValues.due ? true : false);
+	const [ due, setDue ] = useState(initialValues && initialValues.due ? true : false);
 
 	const title = initialValues ? initialValues.title : '';
 	const description = initialValues ? initialValues.description : '';
@@ -57,13 +57,20 @@ const TodoForm = (props) => {
 							validate={validateTitleField}
 						/>
 					</div>
-					<div className="inline field">
-						<div className="ui toggle checkbox">
-							<input type="checkbox" className="hidden" tabIndex="0" name="due" checked={due} readOnly />
-							<label onClick={setDue(!due)}>Due</label>
-						</div>
+				</div>
+				<InputTextAreaForm
+					name="description"
+					placeholder="Enter a Description"
+					label="Description"
+					value={description}
+					onChange={props.onChangeFieldValue}
+				/>
+				<div className="inline field">
+					<div className="ui toggle checkbox">
+						<input type="checkbox" className="hidden" tabIndex="0" name="due" checked={due} readOnly />
+						<label onClick={() => setDue(!due)}>Due</label>
 					</div>
-					<div className="ui segment">
+					<div className="ui segment" style={due ? { display: 'block' } : { display: 'none' }}>
 						<div className="field">
 							<label>Due</label>
 							<div className="fields">
@@ -87,14 +94,6 @@ const TodoForm = (props) => {
 						</div>
 					</div>
 				</div>
-
-				<InputTextAreaForm
-					name="description"
-					placeholder="Enter a Description"
-					label="Description"
-					value={description}
-					onChange={props.onChangeFieldValue}
-				/>
 				<InputCheckboxForm name="done" label="Done" value={done} onChange={props.onChangeFieldValue} />
 				<div>
 					<button className="ui button" onClick={onSave}>
